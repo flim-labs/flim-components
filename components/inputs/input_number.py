@@ -175,7 +175,7 @@ class BaseInputNumber(QWidget):
 
 
 
-class InputIntegerControl(BaseInputNumber):
+class InputInteger(BaseInputNumber):
     """
     A specific implementation of BaseInputNumber for integer values using QSpinBox.
     """    
@@ -186,7 +186,7 @@ class InputIntegerControl(BaseInputNumber):
         return input_widget
 
 
-class InputFloatControl(BaseInputNumber):
+class InputFloat(BaseInputNumber):
     """
     A specific implementation of BaseInputNumber for float values using QDoubleSpinBox.
     """    
