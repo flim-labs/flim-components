@@ -3,7 +3,8 @@ from typing import Optional
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QIcon
 
-from styles.buttons_styles import base_button_style
+from styles.buttons_styles import ButtonStyles
+
 
 
 class BaseButton(QPushButton):
@@ -24,6 +25,8 @@ class BaseButton(QPushButton):
             Whether the button is visible or hidden (default is True).
         icon : str | None, optional
             The file path to the icon to be displayed on the button, if any (default is None).
+        icon_size : QSize | None, optional
+            The size of the icon displayed on the button, if any (default is None).            
         fg_color : str, optional
             The foreground (text) color of the button (default is "#ffffff").
         border_color : str, optional
@@ -54,6 +57,7 @@ class BaseButton(QPushButton):
         enabled: bool = True,
         visible: bool = True,
         icon: str | None = None,
+        icon_size: QSize | None = None,
         fg_color: str = "#ffffff",
         border_color: str = "#13B6B4",
         bg_color_base: str = "#13B6B4",
@@ -66,8 +70,8 @@ class BaseButton(QPushButton):
         parent: Optional["QWidget"] = None,
     ) -> None:
         super().__init__(parent)
-        self.setText(text)
-        self.set_icon(icon)
+        self.set_text(text)
+        self.set_icon(icon, icon_size)
         self.setEnabled(enabled)
         self.setVisible(visible)
         self.set_default_size(width, height)
@@ -84,6 +88,16 @@ class BaseButton(QPushButton):
             border_color_disabled,
             stylesheet,
         )
+        
+    def set_text(self, text: str) -> None:
+        """
+        Set the button text.
+
+        Parameters
+        ----------
+        text : str
+        """
+        self.setText(text)        
 
     def _set_default_style(
         self,
@@ -101,7 +115,7 @@ class BaseButton(QPushButton):
             self.setStyleSheet(stylesheet)
         else:
             self.setStyleSheet(
-                base_button_style(
+                ButtonStyles.base_button_style(
                     fg_color,
                     bg_color_base,
                     border_color,
@@ -116,7 +130,7 @@ class BaseButton(QPushButton):
     def _set_default_size(self, width: int = 110, height: int = 55) -> None:
         self.setFixedSize(QSize(width, height))
         
-    def set_icon(self, icon: str | None) -> None:
+    def set_icon(self, icon: str | None, icon_size: QSize | None) -> None:
         """
         Set the icon for the button.
 
@@ -124,9 +138,13 @@ class BaseButton(QPushButton):
         ----------
         icon : str | None
             The file path to the icon to be displayed on the button, if any.
+        icon_size: QSize | None
+            The size of the icon, if any    
         """
         if icon is not None:
-            self.setIcon(QIcon(icon))    
+            self.setIcon(QIcon(icon))  
+            if icon_size is not None:
+                self.setIconSize(icon_size)  
 
     def toggle_enable_state(self, state: bool) -> None:
         """
@@ -158,3 +176,18 @@ class BaseButton(QPushButton):
             The stylesheet string to be applied to the button.
         """
         self.setStyleSheet(stylesheet)
+        
+    
+    def update_text_and_style(self, text: str, stylesheet: str):
+        """
+        Apply a text and a custom stylesheet to the button.
+        Useful when you want to change the button appearance depending on some trigger
+
+        Parameters
+        ----------
+        text: str
+        stylesheet : str
+        """        
+        self.set_text(text)
+        self.set_style(stylesheet)
+          
