@@ -44,7 +44,7 @@ class BinWidthSelector(InputSelect):
     def __init__(
         self,
         label: str = "Bin width (µs):",
-        selected_value: int = 10,
+        selected_value: int = 1,
         options: List[str] =  [1, 10, 100, 1000],
         event_callback: Callable[[int], None] = None,
         layout_type: str = "vertical",
