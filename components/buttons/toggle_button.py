@@ -1,7 +1,7 @@
-from PyQt6.QtWidgets import QPushButton, QWidget, QVBoxLayout, QHBoxLayout
-from typing import Dict, List, Optional, TypedDict
-from PyQt6.QtCore import QSize, Qt, pyqtSignal
-from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from typing import List, Optional, TypedDict
+from PyQt6.QtCore import pyqtSignal
+
 
 from components.buttons.base_button import BaseButton
 from styles.buttons_styles import ButtonStyles
@@ -70,32 +70,41 @@ class ToggleButton(QWidget):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.buttons_row_layout = self._build_buttons()
         self.layout.addLayout(self.buttons_row_layout)
+        self.setLayout(self.layout)
 
     def _build_buttons(self) -> QHBoxLayout:
         buttons_row_layout = QHBoxLayout()
         buttons_row_layout.setSpacing(0)
         for i, toggleable in enumerate(self.toggleables):
-            is_first = (i == 0)
-            is_last = (i == len(self.toggleables) - 1)
+            is_first = i == 0
+            is_last = i == len(self.toggleables) - 1
             button = self._build_button(toggleable, is_first, is_last)
             buttons_row_layout.addWidget(button)
             self.buttons.append(button)
         return buttons_row_layout
 
-    def _build_button(self, toggleable: Toggleable, is_first: bool, is_last: bool) -> BaseButton:
-        fg_color = self.fg_color_active if toggleable["active"] else self.fg_color_inactive
-        bg_color = self.bg_color_active if toggleable["active"] else self.bg_color_inactive
+    def _build_button(
+        self, toggleable: Toggleable, is_first: bool, is_last: bool
+    ) -> BaseButton:
+        fg_color = (
+            self.fg_color_active if toggleable["active"] else self.fg_color_inactive
+        )
+        bg_color = (
+            self.bg_color_active if toggleable["active"] else self.bg_color_inactive
+        )
         button = BaseButton(
             text=toggleable["text"],
             enabled=self.enabled,
             visible=self.visible,
             stylesheet=ButtonStyles.toggle_button_style(
                 fg_color, bg_color, is_first, is_last
-            )
+            ),
         )
         button.setCheckable(True)
         button.setChecked(toggleable["active"])
-        button.clicked.connect(lambda _, k=toggleable["key"]: self._on_button_clicked(k))
+        button.clicked.connect(
+            lambda _, k=toggleable["key"]: self._on_button_clicked(k)
+        )
         return button
 
     def _on_button_clicked(self, key: str):
@@ -107,8 +116,8 @@ class ToggleButton(QWidget):
             else:
                 toggleable["active"] = False
                 button.setChecked(False)
-            is_first = (i == 0)
-            is_last = (i == len(self.toggleables) - 1)
+            is_first = i == 0
+            is_last = i == len(self.toggleables) - 1
             self._set_style(button, is_first, is_last)
         self.toggled.emit(key)
 
@@ -116,7 +125,9 @@ class ToggleButton(QWidget):
         button_active = button.isChecked()
         fg_color = self.fg_color_active if button_active else self.fg_color_inactive
         bg_color = self.bg_color_active if button_active else self.bg_color_inactive
-        button.set_style(ButtonStyles.toggle_button_style(fg_color, bg_color, is_first, is_last))
+        button.set_style(
+            ButtonStyles.toggle_button_style(fg_color, bg_color, is_first, is_last)
+        )
 
     def get_active_button(self) -> Optional[str]:
         """

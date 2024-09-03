@@ -74,3 +74,20 @@ class ButtonStyles:
             {border_radius_styles}
         }}
         """
+        
+
+    @staticmethod            
+    def collapse_button_style(
+        bg_color: str,
+        border_color: str,
+        border_radius: str,
+        icon_size: str 
+    ):
+        return f"""
+            QPushButton{{
+                background-color: {bg_color};
+                border-radius: {border_radius};
+                qproperty-iconSize: {icon_size};
+                border: 1px solid {border_color};
+            }}
+        """           
