@@ -19,6 +19,8 @@ class InputText(QWidget):
         The layout type for the input and label, either "vertical" (default) or "horizontal".
     text : str, optional
         The initial text to set in the input field (default is an empty string).
+    width : int, optional
+        The default fixed input field width (default is None).        
     stylesheet : str, optional
         An optional stylesheet to customize the appearance of the input widget (default is None).
     parent : QWidget, optional
@@ -32,6 +34,7 @@ class InputText(QWidget):
         placeholder: str | None = None,
         layout_type: str = "vertical",
         text: str = "",
+        width: int | None = None,
         stylesheet: str | None = None,
         parent: QWidget = None,
     ):
@@ -45,6 +48,8 @@ class InputText(QWidget):
             self.input.setPlaceholderText(placeholder)
         self.input.setText(text)
         self.input.textChanged.connect(event_callback)
+        if width is not None:
+            self.input.setFixedWidth(width)
         self.set_style(
             stylesheet if stylesheet is not None else InputStyles.input_text_style()
         )

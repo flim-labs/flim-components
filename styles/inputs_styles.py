@@ -1,5 +1,5 @@
 class InputStyles:
-    
+
     @staticmethod
     def input_number_style():
         return f"""
@@ -18,8 +18,8 @@ class InputStyles:
             border-color: #3c3c3c;
             }}        
         """
-        
-    @staticmethod    
+
+    @staticmethod
     def input_text_style():
         return f"""
            QLineEdit, QPlainTextEdit {{
@@ -37,4 +37,36 @@ class InputStyles:
             color: #404040;  
             border-color: "#3c3c3c";
             }}        
-        """            
+        """
+
+    @staticmethod
+    def input_select_style():
+        return f"""
+            QComboBox {{
+                color: #f8f8f8;
+                font-family: "Montserrat";
+                font-size: 14px;
+                padding: 8px;
+                border: 1px solid #3b3b3b;
+                border-radius: 5px;
+                background-color: transparent;
+            }}
+            QComboBox:disabled {{
+                color: darkgrey;  
+                border-color: #3c3c3c;
+            }} 
+            QComboBox:on {{ 
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }}
+
+           QComboBox QAbstractItemView {{
+            font-family: "Montserrat";
+            border: 1px solid #3b3b3b;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background-color: #181818;
+            color: #f8f8f8;
+            selection-background-color: #8d4ef2;
+            }} 
+        """

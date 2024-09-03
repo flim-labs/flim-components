@@ -21,6 +21,8 @@ class BaseInputNumber(QWidget):
         A function that is called whenever the input value changes.
     layout_type : str, optional
         The layout type for the input and label, either "vertical" (default) or "horizontal".
+    width : int, optional
+        The default fixed input widget width (default is None).          
     stylesheet : str, optional
         An optional stylesheet to customize the appearance of the input widget (default is None).
     parent : QWidget, optional
@@ -34,6 +36,7 @@ class BaseInputNumber(QWidget):
         default_value: int | float,
         event_callback,
         layout_type: str = "vertical",
+        width: int | None = None,
         stylesheet: str | None = None,
         parent: QWidget = None,
     ):
@@ -45,6 +48,8 @@ class BaseInputNumber(QWidget):
         )
         self.input = self.create_input(min_value, max_value, default_value)
         self.input.valueChanged.connect(event_callback)
+        if width is not None:
+            self.setFixedWidth(width)
         self.set_style(stylesheet if stylesheet is not None else InputStyles.input_number_style())
         self.control_layout.addWidget(self.q_label)
         self.control_layout.addWidget(self.input)

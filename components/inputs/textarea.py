@@ -22,6 +22,8 @@ class TextArea(QWidget):
         The layout type for the text area and label, either "vertical" (default) or "horizontal".
     text : str, optional
         The initial text to set in the text area (default is an empty string).
+    width : int, optional
+        The default fixed textarea width (default is None).          
     stylesheet : str, optional
         An optional stylesheet to customize the appearance of the text area (default is None).
     parent : QWidget, optional
@@ -36,6 +38,7 @@ class TextArea(QWidget):
         placeholder: str | None = None,
         layout_type: str = "vertical",
         text: str = "",
+        width: int | None = None,
         stylesheet: str | None = None,
         parent: QWidget = None,
     ):
@@ -50,6 +53,8 @@ class TextArea(QWidget):
         self.textarea.setPlainText(text)
         self.textarea.textChanged.connect(self.limit_characters)
         self.textarea.textChanged.connect(event_callback)
+        if width is not None:
+            self.setFixedWidth(width)
         self.set_style(
             stylesheet if stylesheet is not None else InputStyles.input_text_style()
         )
@@ -152,6 +157,7 @@ class TextArea(QWidget):
         self.textarea.setToolTip(text)
 
     def limit_characters(self):
+        self.textarea.textChanged.disconnect(self.limit_characters)
         """
         Limit the number of characters in the text area to the maximum allowed.
         """
@@ -160,9 +166,13 @@ class TextArea(QWidget):
         current_text = self.textarea.toPlainText()
         if len(current_text) > self.max_chars:
             # Truncate the text and update the text area
-            cursor = self.textarea.textCursor()
-            cursor_pos = cursor.position()
-            truncated_text = current_text[: self.max_chars]
+            text = self.textarea.toPlainText()
+            cursor_pos = self.textarea.textCursor().position()
+            truncated_text = text[:self.max_chars]
+            selected_text = text[cursor_pos:]
+            truncated_text += selected_text
             self.textarea.setPlainText(truncated_text)
+            cursor = self.textarea.textCursor()
             cursor.setPosition(len(truncated_text))
-            self.textarea.setTextCursor(cursor)
+            self.textarea.setTextCursor(cursor)            
+        self.textarea.textChanged.connect(self.limit_characters)    
