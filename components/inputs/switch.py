@@ -1,7 +1,9 @@
 from typing import Optional
 from PyQt6.QtCore import Qt, QPoint, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QPainter, QColor, QMouseEvent
-from PyQt6.QtWidgets import QWidget, QCheckBox
+from PyQt6.QtWidgets import QWidget, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
+
+from utils.layout_utils import LayoutUtils
 
 
 def take_closest(num, collection):
@@ -25,8 +27,15 @@ class SwitchCircle(QWidget):
     animation_duration : int
         The duration of the animation in milliseconds.
     """
-    
-    def __init__(self, parent: QWidget, move_range: tuple[int, int], color: str, animation_curve: QEasingCurve.Type, animation_duration: int):
+
+    def __init__(
+        self,
+        parent: QWidget,
+        move_range: tuple[int, int],
+        color: str,
+        animation_curve: QEasingCurve.Type,
+        animation_duration: int,
+    ):
         super().__init__(parent=parent)
         self.color = color
         self.move_range = move_range
@@ -110,7 +119,6 @@ class SwitchCircle(QWidget):
         super().mouseReleaseEvent(event)
 
 
-
 class SwitchControl(QCheckBox):
     """
     A switch control that toggles between on and off states with animation.
@@ -138,7 +146,7 @@ class SwitchControl(QCheckBox):
     height : int, optional
         The height of the switch (default is 28).
     """
-    
+
     def __init__(
         self,
         parent: Optional[QWidget] = None,
@@ -150,7 +158,7 @@ class SwitchControl(QCheckBox):
         checked: bool = False,
         change_cursor: bool = True,
         width: int = 80,
-        height: int = 28
+        height: int = 28,
     ):
         super().__init__(parent)
         self.setFixedSize(width, height)
@@ -161,14 +169,20 @@ class SwitchControl(QCheckBox):
         self.active_color = active_color
         self.animation_curve = animation_curve
         self.animation_duration = animation_duration
-        self.__circle = SwitchCircle(self, (3, self.width() - 26), self.circle_color, self.animation_curve, self.animation_duration)
+        self.__circle = SwitchCircle(
+            self,
+            (3, self.width() - 26),
+            self.circle_color,
+            self.animation_curve,
+            self.animation_duration,
+        )
         self.__circle_position = 3
         self.auto = False
         self.pos_on_press = None
         self.animation = QPropertyAnimation(self.__circle, b"pos")
         self.animation.setEasingCurve(animation_curve)
         self.animation.setDuration(animation_duration)
-        
+
         if checked:
             self.__circle.move(self.width() - 26, 3)
             self.setChecked(True)
@@ -191,10 +205,16 @@ class SwitchControl(QCheckBox):
         enabled = self.isEnabled()
         if not self.isChecked():
             painter.setBrush(QColor(self.bg_color) if enabled else QColor("black"))
-            painter.drawRoundedRect(0, 0, self.width(), self.height(), self.height() / 2, self.height() / 2)
+            painter.drawRoundedRect(
+                0, 0, self.width(), self.height(), self.height() / 2, self.height() / 2
+            )
         else:
-            painter.setBrush(QColor(self.active_color) if enabled else QColor("darkgrey"))
-            painter.drawRoundedRect(0, 0, self.width(), self.height(), self.height() / 2, self.height() / 2)
+            painter.setBrush(
+                QColor(self.active_color) if enabled else QColor("darkgrey")
+            )
+            painter.drawRoundedRect(
+                0, 0, self.width(), self.height(), self.height() / 2, self.height() / 2
+            )
 
     def hitButton(self, pos):
         """
@@ -268,3 +288,132 @@ class SwitchControl(QCheckBox):
             self.animation.setEndValue(QPoint(3, self.__circle.y()))
         self.setChecked(checked)
         self.animation.start()
+
+
+class SwitchBox(QWidget):
+    """
+    A customizable widget that combines a label and a switch control into a single component.
+
+    Parameters
+    ----------
+    label : str
+        The text to be displayed as the label for the switch.
+    bg_color : str, optional
+        The background color of the switch (default is "#777777").
+    circle_color : str, optional
+        The color of the switch's circle (default is "#222222").
+    active_color : str, optional
+        The color of the switch when it is in the active (checked) state (default is "#aa00ff").
+    checked : bool, optional
+        The initial checked state of the switch (default is False).
+    width : int, optional
+        The width of the switch (default is 80).
+    height : int, optional
+        The height of the switch (default is 28).
+    spacing : int, optional
+        The spacing between the label and the switch (default is 8).
+    layout_type : str, optional
+        The layout type for the label and switch, either "vertical" or "horizontal" (default is "vertical").
+    parent : QWidget, optional
+        The parent widget of this switch box (default is None).
+    """
+
+    def __init__(
+        self,
+        label: str,
+        bg_color: str = "#777777",
+        circle_color: str = "#222222",
+        active_color: str = "#aa00ff",
+        checked: bool = False,
+        width: int = 80,
+        height: int = 28,
+        spacing: int = 8,
+        layout_type: str = "vertical",
+        parent: QWidget = None,
+    ):
+        super().__init__(parent)
+        self.q_label = QLabel(label)
+        self.control_layout = (
+            QVBoxLayout() if layout_type == "vertical" else QHBoxLayout()
+        )
+        self.control_layout.addWidget(self.q_label)
+        self.control_layout.addSpacing(spacing)
+        self.switch = SwitchControl(
+            bg_color=bg_color,
+            circle_color=circle_color,
+            active_color=active_color,
+            checked=checked,
+            height=height,
+            width=width,
+        )
+        self.control_layout.addWidget(self.switch)
+        self.setLayout(self.control_layout)
+
+    def toggle_enable_state(self, state):
+        """
+        Enable or disable the switch widget.
+
+        Parameters
+        ----------
+        state : bool
+            If True, enables the switch widget; if False, disables it.
+        """
+        self.switch.setEnabled(state)
+
+    def toggle_visible_state(self, state):
+        """
+        Show or hide the switch box and all its child widgets.
+
+        Parameters
+        ----------
+        state : bool
+            If True, makes the switch box visible; if False, hides it.
+        """
+        if state:
+            LayoutUtils.show_layout(self.control_layout)
+        else:
+            LayoutUtils.hide_layout(self.control_layout)
+
+    def toggle_checked_state(self, state):
+        """
+        Check or uncheck the switch widget.
+
+        Parameters
+        ----------
+        state : bool
+            If True, makes the switch widget checked; if False, unchecks it.
+        """
+        self.switch.setChecked(state)
+
+    def is_enabled(self) -> bool:
+        """
+        Check if the switch widget is enabled.
+
+        Returns
+        -------
+        bool
+            True if the switch widget is enabled, False otherwise.
+        """
+        return self.switch.isEnabled()
+
+    def is_checked(self) -> bool:
+        """
+        Check if the switch widget is checked.
+
+        Returns
+        -------
+        bool
+            True if the switch widget is checked, False otherwise.
+        """
+        return self.switch.isChecked()
+
+    def set_label_text(self, text: str):
+        """
+        Set the text for the label associated with the switch widget.
+
+        Parameters
+        ----------
+        text : str
+            The text to display on the label.
+        """
+        self.q_label.setText(text)

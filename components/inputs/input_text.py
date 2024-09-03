@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QLineEdit, QWidget
 
 from styles.inputs_styles import InputStyles
+from utils.layout_utils import LayoutUtils
 
 
 class InputText(QWidget):
@@ -107,16 +108,19 @@ class InputText(QWidget):
         """
         self.input.setEnabled(state)
 
-    def toggle_visible_state(self, state: bool):
+    def toggle_visible_state(self, state):
         """
-        Show or hide the input widget.
+        Show or hide the control layout and all its child widgets.
 
         Parameters
         ----------
         state : bool
-            If True, makes the input widget visible; if False, hides it.
+            If True, makes the control layout visible; if False, hides it.
         """
-        self.input.setVisible(state)
+        if state:
+            LayoutUtils.show_layout(self.control_layout)
+        else:
+            LayoutUtils.hide_layout(self.control_layout)    
 
     def is_enabled(self) -> bool:
         """

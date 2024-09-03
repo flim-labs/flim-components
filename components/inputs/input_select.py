@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QWidget
 from typing import List, Callable, Optional
 
 from styles.inputs_styles import InputStyles
+from utils.layout_utils import LayoutUtils
 
 
 class InputSelect(QWidget):
@@ -132,14 +133,18 @@ class InputSelect(QWidget):
         
     def toggle_visible_state(self, state):
         """
-        Show or hide the input widget.
+        Show or hide the control layout and all its child widgets.
 
         Parameters
         ----------
         state : bool
-            If True, makes the input widget visible; if False, hides it.
-        """        
-        self.dropdown.setVisible(state)             
+            If True, makes the control layout visible; if False, hides it.
+        """
+        if state:
+            LayoutUtils.show_layout(self.control_layout)
+        else:
+            LayoutUtils.hide_layout(self.control_layout)   
+                   
 
     def is_enabled(self) -> bool:
         """

@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QPlainTextEdit, QWidget
 
 from styles.inputs_styles import InputStyles
+from utils.layout_utils import LayoutUtils
 
 
 class TextArea(QWidget):
@@ -112,16 +113,19 @@ class TextArea(QWidget):
         """
         self.textarea.setEnabled(state)
 
-    def toggle_visible_state(self, state: bool):
+    def toggle_visible_state(self, state):
         """
-        Show or hide the text area widget.
+        Show or hide the control layout and all its child widgets.
 
         Parameters
         ----------
         state : bool
-            If True, makes the text area widget visible; if False, hides it.
+            If True, makes the control layout visible; if False, hides it.
         """
-        self.textarea.setVisible(state)
+        if state:
+            LayoutUtils.show_layout(self.control_layout)
+        else:
+            LayoutUtils.hide_layout(self.control_layout)    
 
     def is_enabled(self) -> bool:
         """
