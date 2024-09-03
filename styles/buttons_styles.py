@@ -8,7 +8,7 @@ class ButtonStyles:
         bg_color_pressed: str,
         bg_color_disabled: str,
         border_color_disabled: str,
-        fg_color_disabled: str
+        fg_color_disabled: str,
     ):
         return f"""
             QPushButton {{
@@ -40,16 +40,13 @@ class ButtonStyles:
                 color: {fg_color_disabled};
             }}
         """
-        
+
     @staticmethod
     def toggle_button_style(
-        fg_color: str,
-        bg_color: str,
-        is_first: bool = False,
-        is_last: bool = False
+        fg_color: str, bg_color: str, is_first: bool = False, is_last: bool = False
     ) -> str:
         border_radius_styles = ""
-        
+
         if is_first:
             border_radius_styles += """
             border-top-left-radius: 3px;
@@ -74,14 +71,10 @@ class ButtonStyles:
             {border_radius_styles}
         }}
         """
-        
 
-    @staticmethod            
+    @staticmethod
     def collapse_button_style(
-        bg_color: str,
-        border_color: str,
-        border_radius: str,
-        icon_size: str 
+        bg_color: str, border_color: str, border_radius: str, icon_size: str
     ):
         return f"""
             QPushButton{{
@@ -90,4 +83,28 @@ class ButtonStyles:
                 qproperty-iconSize: {icon_size};
                 border: 1px solid {border_color};
             }}
-        """           
+        """
+
+    @staticmethod
+    def select_button_style(
+        fg_color: str, bg_color_base: str, bg_color_hover: str, bg_color_pressed: str, border_color: str
+    ):
+        return f"""
+            QPushButton {{
+                font-family: "Montserrat";
+                font-size: 12px;
+                font-weight: thin;
+                border: 1px solid {border_color};
+                border-radius: 0px;
+                height: 20px;
+                color: {fg_color};
+                padding: 5px;
+                background-color: {bg_color_base};
+            }}
+            QPushButton:hover {{
+                background-color: {bg_color_hover};
+            }}
+            QPushButton:pressed {{
+                background-color: {bg_color_pressed};
+            }}
+        """

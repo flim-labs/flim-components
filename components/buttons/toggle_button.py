@@ -14,7 +14,6 @@ class Toggleable(TypedDict):
 
 
 class ToggleButton(QWidget):
-    toggled = pyqtSignal(str)
 
     """
         A toggleable widget consisting of a set of child buttons, allowing one button to be active at a time.
@@ -44,6 +43,8 @@ class ToggleButton(QWidget):
         parent : Optional[QWidget], optional
             The parent widget of the `ToggleButton`, if any (default is None).
     """
+    
+    toggled = pyqtSignal(str)
 
     def __init__(
         self,
