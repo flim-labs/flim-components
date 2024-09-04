@@ -99,3 +99,30 @@ class InputStyles:
                 background-color: {checkbox_color_checked};
             }}
         """
+        
+    @staticmethod            
+    def wrapped_checkbox_style(checkbox_color_checked: str, checkbox_color_unchecked: str, label_color: str):
+        return f"""
+            QCheckBox {{
+                spacing: 5px;
+                color: {label_color};
+                font-family: "Montserrat";
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                border-radius: 5px;
+            }}
+            QCheckBox::indicator {{
+                width: 14px;
+                height: 14px;
+                border-radius: 7px;  
+            }}
+
+            QCheckBox::indicator:unchecked {{
+                background-color: {checkbox_color_unchecked};
+            }}
+
+            QCheckBox::indicator:checked {{
+                background-color: {checkbox_color_checked};
+            }}
+        """  
+           
