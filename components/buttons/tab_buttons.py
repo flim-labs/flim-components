@@ -6,6 +6,7 @@ from layouts.compact_layout import CompactLayout
 from models.models import Toggleable
 from styles.buttons_styles import ButtonStyles
 
+
 class Tabs(QWidget):
     """
     A customizable tab widget that allows for the creation of multiple toggleable tabs.
@@ -43,6 +44,8 @@ class Tabs(QWidget):
         The foreground color of the tab when disabled (default is "#8c8b8b").
     parent : Optional[QWidget], optional
         The parent widget of the tab control, if any (default is None).
+    stylesheet : str | None, optional
+        A custom stylesheet to apply to the tabs, if any (default is None).
 
     Signals
     -------
@@ -68,6 +71,7 @@ class Tabs(QWidget):
         bg_color_disabled: str = "#cecece",
         border_color_disabled: str = "#cecece",
         fg_color_disabled: str = "#8c8b8b",
+        stylesheet: str | None = None,
         parent: Optional["QWidget"] = None,
     ) -> None:
         super().__init__(parent)
@@ -85,6 +89,7 @@ class Tabs(QWidget):
         self.bg_color_disabled = bg_color_disabled
         self.fg_color_disabled = fg_color_disabled
         self.border_color_disabled = border_color_disabled
+        self.stylesheet = stylesheet
 
         self.tabs: List[BaseButton] = []
 
@@ -106,28 +111,28 @@ class Tabs(QWidget):
             text=tab_config["text"],
             enabled=self.enabled,
             visible=self.visible,
-            stylesheet=ButtonStyles.tab_button_style(
-                self.fg_color_active,
-                self.fg_color_inactive,
-                self.bg_color_active,
-                self.bg_color_hover,
-                self.bg_color_pressed,
-                self.bg_color_inactive,
-                self.border_color_active,
-                self.border_color_inactive,
-                self.bg_color_disabled,
-                self.fg_color_disabled,
-                self.border_color_disabled,
+            stylesheet=(
+                self.stylesheet
+                if self.stylesheet is not None
+                else ButtonStyles.tab_button_style(
+                    self.fg_color_active,
+                    self.fg_color_inactive,
+                    self.bg_color_active,
+                    self.bg_color_hover,
+                    self.bg_color_pressed,
+                    self.bg_color_inactive,
+                    self.border_color_active,
+                    self.border_color_inactive,
+                    self.bg_color_disabled,
+                    self.fg_color_disabled,
+                    self.border_color_disabled,
+                )
             ),
         )
         tab.setCheckable(True)
         tab.setChecked(tab_config["active"])
-        tab.setSizePolicy(
-            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
-        )         
-        tab.clicked.connect(
-            lambda _, k=tab_config["key"]: self._on_tab_clicked(k)
-        )
+        tab.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        tab.clicked.connect(lambda _, k=tab_config["key"]: self._on_tab_clicked(k))
         return tab
 
     def _on_tab_clicked(self, key: str):

@@ -70,3 +70,32 @@ class InputStyles:
             selection-background-color: #8d4ef2;
             }} 
         """
+
+
+    @staticmethod
+    def checkbox_style(checkbox_color_checked: str, checkbox_color_unchecked: str, label_color: str, border_color: str):
+        return f"""
+            QCheckBox {{
+                spacing: 5px;
+                color: {label_color};
+                font-family: "Montserrat";
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                border: 1px solid {border_color};
+                border-radius: 5px;
+                padding: 10px;
+            }}
+            QCheckBox::indicator {{
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;  
+            }}
+
+            QCheckBox::indicator:unchecked {{
+                background-color: {checkbox_color_unchecked};
+            }}
+
+            QCheckBox::indicator:checked {{
+                background-color: {checkbox_color_checked};
+            }}
+        """
