@@ -87,7 +87,11 @@ class ButtonStyles:
 
     @staticmethod
     def select_button_style(
-        fg_color: str, bg_color_base: str, bg_color_hover: str, bg_color_pressed: str, border_color: str
+        fg_color: str,
+        bg_color_base: str,
+        bg_color_hover: str,
+        bg_color_pressed: str,
+        border_color: str,
     ):
         return f"""
             QPushButton {{
@@ -107,4 +111,55 @@ class ButtonStyles:
             QPushButton:pressed {{
                 background-color: {bg_color_pressed};
             }}
+        """
+
+    @staticmethod
+    def tab_button_style(
+        fg_color: str,
+        fg_color_inactive: str,
+        bg_color_base: str,
+        bg_color_hover: str,
+        bg_color_pressed: str,
+        bg_color_inactive: str,
+        border_color: str,
+        border_color_inactive: str,
+        bg_color_disabled: str,
+        fg_color_disabled: str,
+        border_color_disabled: str
+    ):
+        return f"""
+            QPushButton {{
+                background-color: {bg_color_inactive};
+                border: 1px solid transparent;
+                border-bottom: 1px solid {border_color_inactive};
+                font-family: "Montserrat";
+                color: {fg_color_inactive};
+                letter-spacing: 0.1em;
+                padding: 8px 10px;
+                border-radius: 0;
+                font-size: 14px;
+                font-weight: bold;
+            }}        
+            QPushButton:hover {{
+                background-color: {bg_color_hover};
+                border: 1px solid {bg_color_hover};
+            }}
+            QPushButton:focus {{
+                background-color: {bg_color_pressed};
+                border: 1px solid {bg_color_pressed};
+            }}
+            QPushButton:pressed {{
+                background-color: {bg_color_pressed};
+                border: 1px solid {bg_color_pressed};
+            }}
+            QPushButton:checked {{
+                background-color: {bg_color_base}; 
+                color: {fg_color};
+                border: 1px solid {border_color};
+            }}    
+            QPushButton:disabled {{
+                background-color: {bg_color_disabled};
+                border: 2px solid {border_color_disabled};
+                color: {fg_color_disabled};
+            }}                          
         """

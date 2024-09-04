@@ -4,13 +4,10 @@ from PyQt6.QtCore import pyqtSignal
 
 
 from components.buttons.base_button import BaseButton
+from layouts.compact_layout import CompactLayout
+from models.models import Toggleable
 from styles.buttons_styles import ButtonStyles
 
-
-class Toggleable(TypedDict):
-    text: str
-    key: str
-    active: bool
 
 
 class ToggleButton(QWidget):
@@ -42,6 +39,11 @@ class ToggleButton(QWidget):
             The background color of the button when inactive (default is "#cecece").
         parent : Optional[QWidget], optional
             The parent widget of the `ToggleButton`, if any (default is None).
+            
+        Signals
+        -------
+        toggled : pyqtSignal(str)
+            Emitted when a button is toggled, providing its key.            
     """
     
     toggled = pyqtSignal(str)
@@ -66,9 +68,7 @@ class ToggleButton(QWidget):
         self.bg_color_active = bg_color_active
         self.bg_color_inactive = bg_color_inactive
         self.buttons: List[BaseButton] = []
-        self.layout = QVBoxLayout(self)
-        self.layout.setSpacing(0)
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout = CompactLayout(layout=QVBoxLayout)  
         self.buttons_row_layout = self._build_buttons()
         self.layout.addLayout(self.buttons_row_layout)
         self.setLayout(self.layout)

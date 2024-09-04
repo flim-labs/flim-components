@@ -3,6 +3,7 @@ from typing import Optional
 from PyQt6.QtCore import QPropertyAnimation
 
 from components.buttons.base_button import BaseButton
+from layouts.compact_layout import CompactLayout
 from styles.buttons_styles import ButtonStyles
 
 
@@ -65,9 +66,7 @@ class CollapseButton(QWidget):
         self.expanded = expanded
         self.expanded_icon = expanded_icon
         self.collapses_icon = collapsed_icon
-        self.layout = QHBoxLayout()
-        self.layout.setSpacing(0)
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout = CompactLayout(layout=QHBoxLayout) 
         self.collapse_button = self._build_button(
             self.expanded_icon,
             icon_size,

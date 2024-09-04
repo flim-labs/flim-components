@@ -145,6 +145,13 @@ class SelectButtonGroup(QWidget):
             The background color when a button is pressed (default is "#003d7a").
         parent : Optional[QWidget], optional
             The parent widget of the `SelectButtonGroup` (default is None).
+            
+            
+        Signals
+        -------
+        selected : pyqtSignal(str)
+            Emitted when a button is selected, providing its key.
+            
     """
 
     
