@@ -6,7 +6,6 @@ from components.inputs.fancy_checkbox import PaintedCheckbox
 from styles.inputs_styles import InputStyles
 
 
-
 class Checkbox(QWidget):
     """
     A customizable checkbox that can be either a standard checkbox or a fancy
