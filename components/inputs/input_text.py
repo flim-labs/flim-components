@@ -97,7 +97,7 @@ class InputText(QWidget):
         """
         self.input.clear()
 
-    def toggle_enable_state(self, state: bool):
+    def set_enabled(self, state: bool):
         """
         Enable or disable the input widget.
 
@@ -108,7 +108,7 @@ class InputText(QWidget):
         """
         self.input.setEnabled(state)
 
-    def toggle_visible_state(self, state):
+    def set_visible(self, state):
         """
         Show or hide the control layout and all its child widgets.
 

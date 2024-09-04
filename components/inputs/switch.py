@@ -349,7 +349,7 @@ class SwitchBox(QWidget):
         self.control_layout.addWidget(self.switch)
         self.setLayout(self.control_layout)
 
-    def toggle_enable_state(self, state):
+    def set_enabled(self, state):
         """
         Enable or disable the switch widget.
 
@@ -360,7 +360,7 @@ class SwitchBox(QWidget):
         """
         self.switch.setEnabled(state)
 
-    def toggle_visible_state(self, state):
+    def set_visible(self, state):
         """
         Show or hide the switch box and all its child widgets.
 
@@ -374,7 +374,7 @@ class SwitchBox(QWidget):
         else:
             LayoutUtils.hide_layout(self.control_layout)
 
-    def toggle_checked_state(self, state):
+    def set_checked(self, state):
         """
         Check or uncheck the switch widget.
 

@@ -125,7 +125,7 @@ class CollapseButton(QWidget):
         self.animation.start()
 
 
-    def toggle_enable_state(self, state: bool) -> None:
+    def set_enabled(self, state: bool) -> None:
         """
         Toggle the enabled state of the button.
 
@@ -135,7 +135,7 @@ class CollapseButton(QWidget):
         """
         self.collapse_button.setEnabled(state)
 
-    def toggle_visible_state(self, state: bool) -> None:
+    def set_visible(self, state: bool) -> None:
         """
         Toggle the visibility state of the button.
 

@@ -119,7 +119,7 @@ class InputSelect(QWidget):
         self.dropdown.removeItem(index)
         
 
-    def toggle_enable_state(self, state):
+    def set_enabled(self, state):
         """
         Enable or disable the input widget.
 
@@ -131,7 +131,7 @@ class InputSelect(QWidget):
         self.dropdown.setEnabled(state) 
         
         
-    def toggle_visible_state(self, state):
+    def set_visible(self, state):
         """
         Show or hide the control layout and all its child widgets.
 

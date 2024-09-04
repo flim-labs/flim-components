@@ -146,7 +146,7 @@ class BaseButton(QPushButton):
             if icon_size is not None:
                 self.setIconSize(icon_size)  
 
-    def toggle_enable_state(self, state: bool) -> None:
+    def set_enabled(self, state: bool) -> None:
         """
         Toggle the enabled state of the button.
 
@@ -156,7 +156,7 @@ class BaseButton(QPushButton):
         """
         self.setEnabled(state)
 
-    def toggle_visible_state(self, state: bool) -> None:
+    def set_visible(self, state: bool) -> None:
         """
         Toggle the visibility state of the button.
 

@@ -160,7 +160,7 @@ class Tabs(QWidget):
                 return tab_config["key"]
         return None
 
-    def toggle_enable_state(self, state: bool):
+    def set_enabled(self, state: bool):
         """
         Enable or disable all tabs.
 
@@ -173,7 +173,7 @@ class Tabs(QWidget):
             if tab is not None and isinstance(tab, BaseButton):
                 tab.setEnabled(state)
 
-    def toggle_visible_state(self, state: bool):
+    def set_visible(self, state: bool):
         """
         Show or hide all tabs.
 
@@ -186,7 +186,7 @@ class Tabs(QWidget):
             if tab is not None and isinstance(tab, BaseButton):
                 tab.setVisible(state)
 
-    def toggle_checkable_state(self, state: bool):
+    def set_checkable(self, state: bool):
         """
         Make all tabs checkable or not.
 

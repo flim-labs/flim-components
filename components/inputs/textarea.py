@@ -102,7 +102,7 @@ class TextArea(QWidget):
         """
         self.textarea.clear()
 
-    def toggle_enable_state(self, state: bool):
+    def set_enabled(self, state: bool):
         """
         Enable or disable the text area widget.
 
@@ -113,7 +113,7 @@ class TextArea(QWidget):
         """
         self.textarea.setEnabled(state)
 
-    def toggle_visible_state(self, state):
+    def set_visible(self, state):
         """
         Show or hide the control layout and all its child widgets.
 

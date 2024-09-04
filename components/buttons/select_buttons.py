@@ -260,7 +260,7 @@ class SelectButtonGroup(QWidget):
         self.selected.emit(key)    
         
     
-    def toggle_enable_state(self, state: bool):
+    def set_enabled(self, state: bool):
         """
         Enable or disable all buttons.
 
@@ -274,7 +274,7 @@ class SelectButtonGroup(QWidget):
                 button.setEnabled(state)
                 
 
-    def toggle_visible_state(self, state: bool):
+    def set_visible(self, state: bool):
         """
         Show or hide all buttons.
 

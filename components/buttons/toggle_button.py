@@ -144,7 +144,7 @@ class ToggleButton(QWidget):
                 return toggleable["key"]
         return None
 
-    def toggle_enable_state(self, state: bool):
+    def set_enabled(self, state: bool):
         """
         Enable or disable all child buttons.
 
@@ -157,7 +157,7 @@ class ToggleButton(QWidget):
             if button is not None and isinstance(button, BaseButton):
                 button.setEnabled(state)
 
-    def toggle_visible_state(self, state: bool):
+    def set_visible(self, state: bool):
         """
         Show or hide all child buttons.
 
@@ -170,7 +170,7 @@ class ToggleButton(QWidget):
             if button is not None and isinstance(button, BaseButton):
                 button.setVisible(state)
 
-    def toggle_checkable_state(self, state: bool):
+    def set_checkable(self, state: bool):
         """
         Make all child buttons checkable or not.
 
