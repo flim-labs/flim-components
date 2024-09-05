@@ -1,3 +1,6 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from PyQt6.QtWidgets import QPushButton, QWidget
 from typing import Optional
 from PyQt6.QtCore import QSize, Qt
@@ -70,11 +73,20 @@ class BaseButton(QPushButton):
         parent: Optional["QWidget"] = None,
     ) -> None:
         super().__init__(parent)
+        self.fg_color = fg_color
+        self.border_color = border_color
+        self.bg_color_base = bg_color_base
+        self.bg_color_hover = bg_color_hover
+        self.bg_color_pressed = bg_color_pressed
+        self.bg_color_disabled = bg_color_disabled
+        self.fg_color_disabled = fg_color_disabled
+        self.border_color_disabled = border_color_disabled
+        self.stylesheet = stylesheet
         self.set_text(text)
         self.set_icon(icon, icon_size)
         self.setEnabled(enabled)
         self.setVisible(visible)
-        self.set_default_size(width, height)
+        self._set_default_size(width, height)
         self.setFlat(True)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self._set_default_style(
@@ -190,4 +202,4 @@ class BaseButton(QPushButton):
         """        
         self.set_text(text)
         self.set_style(stylesheet)
-          
+        
