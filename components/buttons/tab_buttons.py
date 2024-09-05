@@ -93,13 +93,13 @@ class Tabs(QWidget):
 
         self.tabs: List[BaseButton] = []
 
-        self.layout = CompactLayout(layout=QVBoxLayout)
+        self.layout = CompactLayout(QVBoxLayout())
         self.tabs_layout = self._build_tabs()
         self.layout.addLayout(self.tabs_layout)
         self.setLayout(self.layout)
 
     def _build_tabs(self) -> QHBoxLayout:
-        tabs_layout = CompactLayout(layout=QHBoxLayout)
+        tabs_layout = CompactLayout(QHBoxLayout())
         for i, tab_config in enumerate(self.tabs_config):
             tab = self._build_tab(tab_config)
             tabs_layout.addWidget(tab)
@@ -111,6 +111,7 @@ class Tabs(QWidget):
             text=tab_config["text"],
             enabled=self.enabled,
             visible=self.visible,
+            width=None,
             stylesheet=(
                 self.stylesheet
                 if self.stylesheet is not None

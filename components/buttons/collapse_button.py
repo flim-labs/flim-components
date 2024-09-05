@@ -1,48 +1,15 @@
 from PyQt6.QtWidgets import QWidget, QHBoxLayout
 from typing import Optional
-from PyQt6.QtCore import QPropertyAnimation
+from PyQt6.QtCore import QPropertyAnimation, QTimer
 
 from components.buttons.base_button import BaseButton
 from layouts.compact_layout import CompactLayout
 from styles.buttons_styles import ButtonStyles
 
-
 class CollapseButton(QWidget):
     """
-        A button that toggles the visibility of a collapsible widget with an animation.
-
-        Parameters
-        ----------
-        collapsible_widget : QWidget
-            The widget that will be collapsed or expanded when the button is clicked.
-        expanded : bool, optional
-            The initial state of the collapsible widget. If True, the widget starts in a expanded state (default is True).
-        expanded_icon : str, optional
-            The file path to the icon to be displayed when the widget is expanded (default is an 'arrow-up' icon).
-        collapsed_icon : str, optional
-            The file path to the icon to be displayed when the widget is collapsed (default is an 'arrow-down' icon).
-        icon_size : str, optional
-            The size of the icon displayed on the button (default is "15px"). This should be a valid CSS size string.
-        width : int, optional
-            The width of the button in pixels (default is 30).
-        height : int, optional
-            The height of the button in pixels (default is 30).
-        enabled : bool, optional
-            Whether the button is enabled or disabled (default is True).
-        visible : bool, optional
-            Whether the button is visible or hidden (default is True).
-        bg_color : str, optional
-            The background color of the button (default is "transparent").
-        border_color : str, optional
-            The border color of the button (default is "#808080").
-        border_radius : str, optional
-            The border radius of the button (default is "15px").
-        animation_duration : int, optional
-            The duration of the collapse/expand animation in milliseconds (default is 300).
-        parent : Optional[QWidget], optional
-            The parent widget of the `CollapseButton`, if any (default is None).
-        """
-    
+    A button that toggles the visibility of a collapsible widget with an animation.
+    """
 
     def __init__(
         self,
@@ -65,8 +32,9 @@ class CollapseButton(QWidget):
         self.collapsible_widget = collapsible_widget
         self.expanded = expanded
         self.expanded_icon = expanded_icon
-        self.collapses_icon = collapsed_icon
-        self.layout = CompactLayout(layout=QHBoxLayout) 
+        self.collapsed_icon = collapsed_icon
+
+        self.layout = CompactLayout(QHBoxLayout()) 
         self.collapse_button = self._build_button(
             self.expanded_icon,
             icon_size,
@@ -80,8 +48,12 @@ class CollapseButton(QWidget):
         )
         self.layout.addWidget(self.collapse_button)
         self.setLayout(self.layout)
+        self.collapsible_widget.setMaximumHeight(
+            self.collapsible_widget.sizeHint().height() if self.expanded else 0
+        )
         self.animation = QPropertyAnimation(self.collapsible_widget, b"maximumHeight")
         self.animation.setDuration(animation_duration)        
+        QTimer.singleShot(0, self._update_initial_state)
 
     def _build_button(
         self,
@@ -108,40 +80,36 @@ class CollapseButton(QWidget):
         )
         return button
     
+    def _update_initial_state(self):
+        """Update the initial state of the collapsible widget."""
+        self.animation.setStartValue(self.collapsible_widget.maximumHeight())
+        self.animation.setEndValue(
+            self.collapsible_widget.sizeHint().height() if self.expanded else 0
+        )
 
     def toggle_collapsible_widget(self):
         """
         Toggle the state of the collapsible widget between collapsed and expanded.
         """        
-        self.collapsed = not self.collapsed
-        if self.collapsed:
+        self.expanded = not self.expanded
+        if self.expanded:
             self.animation.setStartValue(0)
             self.animation.setEndValue(self.collapsible_widget.sizeHint().height())
-            self.collapse_button.set_icon(icon=self.collapses_icon)  
+            self.collapse_button.set_icon(icon=self.expanded_icon, icon_size=None)  
         else:
             self.animation.setStartValue(self.collapsible_widget.sizeHint().height())
             self.animation.setEndValue(0)
-            self.collapse_button.set_icon(icon=self.expanded_icon)  
+            self.collapse_button.set_icon(icon=self.collapsed_icon, icon_size=None)  
         self.animation.start()
-
 
     def set_enabled(self, state: bool) -> None:
         """
         Toggle the enabled state of the button.
-
-        Parameters
-        ----------
-        state : bool
         """
         self.collapse_button.setEnabled(state)
 
     def set_visible(self, state: bool) -> None:
         """
         Toggle the visibility state of the button.
-
-        Parameters
-        ----------
-        state : bool
         """
         self.collapse_button.setVisible(state)
-        

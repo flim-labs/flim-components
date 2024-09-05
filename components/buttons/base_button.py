@@ -18,9 +18,9 @@ class BaseButton(QPushButton):
         ----------
         text : str
             The text to be displayed on the button.
-        width : int, optional
+        width : int | None, optional
             The width of the button in pixels (default is 110).
-        height : int, optional
+        height : int | None, optional
             The height of the button in pixels (default is 55).
         enabled : bool, optional
             Whether the button is enabled or disabled (default is True).
@@ -55,8 +55,8 @@ class BaseButton(QPushButton):
     def __init__(
         self,
         text: str,
-        width: int = 110,
-        height: int = 55,
+        width: int | None = 110,
+        height: int | None = 55,
         enabled: bool = True,
         visible: bool = True,
         icon: str | None = None,
@@ -88,6 +88,7 @@ class BaseButton(QPushButton):
         self.setVisible(visible)
         self._set_default_size(width, height)
         self.setFlat(True)
+        self.setMinimumSize(QSize(0, 0))
         self.setCursor(Qt.CursorShape.PointingHandCursor)
         self._set_default_style(
             fg_color,
@@ -139,8 +140,11 @@ class BaseButton(QPushButton):
                 )
             )
 
-    def _set_default_size(self, width: int = 110, height: int = 55) -> None:
-        self.setFixedSize(QSize(width, height))
+    def _set_default_size(self, width: int | None, height: int | None) -> None:
+        if width is not None:
+            self.setFixedWidth(width)
+        if height is not None:
+            self.setFixedHeight(height)
         
     def set_icon(self, icon: str | None, icon_size: QSize | None) -> None:
         """

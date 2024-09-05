@@ -1,5 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
-from typing import List, Optional, TypedDict
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSizePolicy
+from typing import List, Optional
 from PyQt6.QtCore import pyqtSignal
 
 
@@ -68,18 +68,16 @@ class ToggleButton(QWidget):
         self.bg_color_active = bg_color_active
         self.bg_color_inactive = bg_color_inactive
         self.buttons: List[BaseButton] = []
-        self.layout = CompactLayout(layout=QVBoxLayout)  
         self.buttons_row_layout = self._build_buttons()
-        self.layout.addLayout(self.buttons_row_layout)
-        self.setLayout(self.layout)
+        self.setLayout(self.buttons_row_layout)
 
     def _build_buttons(self) -> QHBoxLayout:
-        buttons_row_layout = QHBoxLayout()
-        buttons_row_layout.setSpacing(0)
+        buttons_row_layout = CompactLayout(QHBoxLayout()) 
         for i, toggleable in enumerate(self.toggleables):
             is_first = i == 0
             is_last = i == len(self.toggleables) - 1
             button = self._build_button(toggleable, is_first, is_last)
+            button.setContentsMargins(0,0,0,0)
             buttons_row_layout.addWidget(button)
             self.buttons.append(button)
         return buttons_row_layout
@@ -95,6 +93,8 @@ class ToggleButton(QWidget):
         )
         button = BaseButton(
             text=toggleable["text"],
+            width=None,
+            height=None,
             enabled=self.enabled,
             visible=self.visible,
             stylesheet=ButtonStyles.toggle_button_style(

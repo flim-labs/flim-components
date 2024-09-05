@@ -63,7 +63,7 @@ class SelectButton(QPushButton):
 
     def set_selected(self, selected: bool) -> None:
         self.selected = selected
-        self._updateStyleSheet()
+        self._updateStyleSheet(selected, self.isEnabled())
 
     def _updateStyleSheet(self, selected: bool, enabled: bool) -> None:
         if selected:

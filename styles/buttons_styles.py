@@ -140,10 +140,6 @@ class ButtonStyles:
                 background-color: {bg_color_hover};
                 border: 1px solid {bg_color_hover};
             }}
-            QPushButton:focus {{
-                background-color: {bg_color_pressed};
-                border: 1px solid {bg_color_pressed};
-            }}
             QPushButton:pressed {{
                 background-color: {bg_color_pressed};
                 border: 1px solid {bg_color_pressed};
