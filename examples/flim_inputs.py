@@ -2,6 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout
 from components.inputs.flim.acquisition_time_input import AcquisitionTimeInput
 from components.inputs.flim.acquisitions_averages_input import AcquisitionsAveragesSelector
@@ -16,6 +17,8 @@ from components.inputs.flim.time_span_input import TimeSpanInput
 from components.inputs.flim.acquisition_mode_input import AcquisitionModeSwitch
 from components.inputs.flim.export_data_input import ExportDataSwitch
 from components.inputs.flim.quantize_input import QuantizeSwitch
+from components.inputs.flim.time_shift_input import TimeShiftInput
+from components.inputs.slider import SliderWithInputFactory
 
 
 class FlimInputsExampleWindow(QWidget):
@@ -44,13 +47,25 @@ class FlimInputsExampleWindow(QWidget):
         # Tau input
         self.tau = TauInput(event_callback=self.on_tau_changed)
         # Time span input
-        self.time_span = TimeSpanInput(event_callback=self.on_time_span_changed)
+        self.time_span = TimeSpanInput(event_callback=self.on_time_shift_changed)
+        # Time shift input
+        self.time_shift = TimeShiftInput(event_callback=self.on_time_span_changed, layout_type="vertical")        
         # Acquisition mode input
         self.acquisition_mode = AcquisitionModeSwitch(event_callback=self.on_acquisition_mode_changed)
         # Export data input
         self.export_data = ExportDataSwitch(event_callback=self.on_export_data_changed, layout_type="vertical")
         # Quantize input
         self.quantize_input = QuantizeSwitch(event_callback=self.on_quantize_changed)
+        # Time shift binded slider
+        self.time_shift_slider = SliderWithInputFactory.create_slider_with_input(
+            input_params={
+                "event_callback": self.on_time_shift_slider_value_changed,
+            },
+            slider_params={"event_callback": self.on_time_shift_slider_value_changed},
+            layout_type="horizontal",
+            input_position="right",
+            spacing=20,
+        )
 
         layout = QGridLayout()
 
@@ -65,11 +80,13 @@ class FlimInputsExampleWindow(QWidget):
         layout.addWidget(self.phasors_resolution, 1, 3)
         
         layout.addWidget(self.tau, 2, 0)
-        layout.addWidget(self.time_span, 2, 1)
-        layout.addWidget(self.acquisition_mode, 2, 2)
-        layout.addWidget(self.export_data, 2, 3)
+        layout.addWidget(self.time_shift, 2, 1)
+        layout.addWidget(self.time_span, 2, 2)
+        layout.addWidget(self.acquisition_mode, 2, 3)
         
-        layout.addWidget(self.quantize_input, 3, 0)
+        layout.addWidget(self.export_data, 3, 0) 
+        layout.addWidget(self.quantize_input, 3, 1)
+        layout.addWidget(self.time_shift_slider, 3, 2)
 
         self.setLayout(layout)
         
@@ -102,7 +119,10 @@ class FlimInputsExampleWindow(QWidget):
         print(f"Tau set to: {value}")   
         
     def on_time_span_changed(self, value: int):
-        print(f"Time span set to: {value}")           
+        print(f"Time span set to: {value}")         
+        
+    def on_time_shift_changed(self, value: int):
+        print(f"Time shift set to: {value}")                     
         
     def on_acquisition_mode_changed(self, state: bool):
         print(f"Free running mode set to: {state}")                                         
@@ -111,8 +131,10 @@ class FlimInputsExampleWindow(QWidget):
         print(f"Export data set to: {state}")        
         
     def on_quantize_changed(self, state: bool):
-        print(f"Quantize set to: {state}")                                             
-                                   
+        print(f"Quantize set to: {state}")   
+                                                  
+    def on_time_shift_slider_value_changed (self, value: int):
+        print(f"Time shift slider set to: {value}")                               
 
 
 if __name__ == "__main__":

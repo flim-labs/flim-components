@@ -19,6 +19,10 @@ class InputSelect(QWidget):
         A list of strings representing the options to display in the dropdown menu.
     event_callback : Callable[[int], None]
         A function that is called whenever the selected index in the dropdown menu changes.
+    enabled : bool, optional
+        Whether the dropdown menu is initially enabled (default is True).
+    visible : bool, optional
+        Whether the widget is initially visible (default is True).        
     layout_type : str, optional
         The layout type for the dropdown menu and label, either "vertical" (default) or "horizontal".
     stylesheet : str, optional
@@ -35,6 +39,8 @@ class InputSelect(QWidget):
         selected_value: int,
         options: List[str],
         event_callback: Callable[[int], None],
+        visible: bool = True,
+        enabled: bool = True,
         layout_type: str = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = None,
@@ -56,6 +62,8 @@ class InputSelect(QWidget):
         self.control_layout.addWidget(self.q_label)
         self.control_layout.addWidget(self.dropdown)
         self.setLayout(self.control_layout)
+        self.set_enabled(enabled)
+        self.set_visible(visible)
 
     def get_selected_index(self) -> int:
         """

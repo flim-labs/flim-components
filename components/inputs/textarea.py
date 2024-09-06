@@ -17,6 +17,10 @@ class TextArea(QWidget):
         The placeholder text to display when the text area is empty (default is None).
     event_callback : callable
         A function that is called whenever the text area content changes.
+    enabled : bool, optional
+        Whether the textarea is initially enabled (default is True).
+    visible : bool, optional
+        Whether the widget is initially visible (default is True).               
     max_chars : int, optional
         The maximum number of characters allowed in the text area (default is None).
     layout_type : str, optional
@@ -35,6 +39,8 @@ class TextArea(QWidget):
         self,
         label: str,
         event_callback,
+        enabled: bool = True,
+        visible: bool = True,
         max_chars: int | None = None,
         placeholder: str | None = None,
         layout_type: str = "vertical",
@@ -62,6 +68,8 @@ class TextArea(QWidget):
         self.control_layout.addWidget(self.q_label)
         self.control_layout.addWidget(self.textarea)
         self.setLayout(self.control_layout)
+        self.set_enabled(enabled)
+        self.setVisible(visible)
 
     def set_style(self, stylesheet: str):
         """

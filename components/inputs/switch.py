@@ -303,7 +303,11 @@ class SwitchBox(QWidget):
     label : str
         The text to be displayed as the label for the switch.
     event_callback : Callable[[bool], None]
-        A function that is called whenever the switch is toggled.        
+        A function that is called whenever the switch is toggled.     
+    enabled : bool, optional
+        Whether the switch is initially enabled (default is True).
+    visible : bool, optional
+        Whether the switch box is initially visible (default is True).                  
     bg_color : str, optional
         The background color of the switch (default is "#777777").
     circle_color : str, optional
@@ -328,6 +332,8 @@ class SwitchBox(QWidget):
         self,
         label: str,
         event_callback: Callable[[bool], None],
+        enabled: bool = True,
+        visible: bool = True,
         bg_color: str = "#777777",
         circle_color: str = "#222222",
         active_color: str = "#aa00ff",
@@ -356,6 +362,8 @@ class SwitchBox(QWidget):
         )
         self.control_layout.addWidget(self.switch)
         self.setLayout(self.control_layout)
+        self.set_enabled(enabled)
+        self.set_visible(visible)
 
     def set_enabled(self, state):
         """

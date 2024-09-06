@@ -16,6 +16,10 @@ class InputText(QWidget):
         The placeholder text to display when the input is empty (default is None).
     event_callback : callable
         A function that is called whenever the input text changes.
+    enabled : bool, optional
+        Whether the input field is initially enabled (default is True).
+    visible : bool, optional
+        Whether the widget is initially visible (default is True).               
     layout_type : str, optional
         The layout type for the input and label, either "vertical" (default) or "horizontal".
     text : str, optional
@@ -32,6 +36,8 @@ class InputText(QWidget):
         self,
         label: str,
         event_callback,
+        enabled: bool = True,
+        visible: bool = True,
         placeholder: str | None = None,
         layout_type: str = "vertical",
         text: str = "",
@@ -57,6 +63,8 @@ class InputText(QWidget):
         self.control_layout.addWidget(self.q_label)
         self.control_layout.addWidget(self.input)
         self.setLayout(self.control_layout)
+        self.set_enabled(enabled)
+        self.set_visible(visible)
 
     def set_style(self, stylesheet: str):
         """
