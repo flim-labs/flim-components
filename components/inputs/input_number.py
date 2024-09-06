@@ -1,5 +1,5 @@
-from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QSpinBox, QDoubleSpinBox, QWidget
-
+from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QSpinBox, QDoubleSpinBox, QWidget, QSizePolicy
+from layouts.compact_layout import CompactLayout
 from styles.inputs_styles import InputStyles
 from utils.layout_utils import LayoutUtils
 
@@ -44,9 +44,7 @@ class BaseInputNumber(QWidget):
         super().__init__(parent)
         self.default_value = default_value
         self.q_label = QLabel(label)
-        self.control_layout = (
-            QVBoxLayout() if layout_type == "vertical" else QHBoxLayout()
-        )
+        self.control_layout =  (QVBoxLayout() if layout_type == "vertical" else QHBoxLayout())
         self.input = self.create_input(min_value, max_value, default_value)
         self.input.valueChanged.connect(event_callback)
         if width is not None:

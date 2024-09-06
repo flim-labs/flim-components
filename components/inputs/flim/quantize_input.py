@@ -12,6 +12,7 @@ class QuantizeSwitch(SwitchBox):
     def __init__(
         self,
         label: str = "Quantize Phasors:",
+        event_callback=None,
         layout_type: str = "vertical",
         width: Optional[int] = 80,
         height: Optional[int] = 28,
@@ -23,6 +24,7 @@ class QuantizeSwitch(SwitchBox):
         super().__init__(
             label=label,
             layout_type=layout_type,
+            event_callback=event_callback,
             width=width,
             height=height,
             spacing=spacing,

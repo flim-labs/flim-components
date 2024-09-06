@@ -13,6 +13,7 @@ class AcquisitionModeSwitch(SwitchBox):
         self,
         label: str = "Free running:",
         layout_type: str = "vertical",
+        event_callback=None,
         width: Optional[int] = 80,
         height: Optional[int] = 28,
         spacing: Optional[int] = 8,
@@ -23,6 +24,7 @@ class AcquisitionModeSwitch(SwitchBox):
         super().__init__(
             label=label,
             layout_type=layout_type,
+            event_callback=event_callback,
             width=width,
             height=height,
             spacing=spacing,

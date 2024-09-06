@@ -12,6 +12,7 @@ class ExportDataSwitch(SwitchBox):
     def __init__(
         self,
         label: str = "Export data:",
+        event_callback=None,
         layout_type: str = "horizontal",
         width: Optional[int] = 70,
         height: Optional[int] = 30,
@@ -23,6 +24,7 @@ class ExportDataSwitch(SwitchBox):
         super().__init__(
             label=label,
             layout_type=layout_type,
+            event_callback=event_callback,
             width=width,
             height=height,
             spacing=spacing,

@@ -97,7 +97,7 @@ class InputStyles:
 
             QCheckBox::indicator:checked {{
                 background-color: {checkbox_color_checked};
-            }}
+            }}         
         """
         
     @staticmethod            
@@ -126,3 +126,20 @@ class InputStyles:
             }}
         """  
            
+           
+    @staticmethod
+    def checkbox_wrapper_style():
+        return f"""
+            QWidget#wrapper {{
+                border: 1px solid #3b3b3b;
+                padding: 0;
+                border-radius: 5px;
+                color: #f8f8f8;
+                font-family: "Montserrat";
+                font-size: 12px;
+                padding: 0;
+            }} 
+            QWidget {{
+                background-color: #222222;
+            }}      
+        """

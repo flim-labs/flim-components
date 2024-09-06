@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Callable, Optional
 from PyQt6.QtCore import Qt, QPoint, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QPainter, QColor, QMouseEvent
 from PyQt6.QtWidgets import QWidget, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
@@ -125,6 +125,8 @@ class SwitchControl(QCheckBox):
 
     Parameters
     ----------
+    event_callback : Callable[[bool], None]
+        A function that is called whenever the switch is toggled.       
     parent : QWidget, optional
         The parent widget of this switch (default is None).
     bg_color : str, optional
@@ -149,6 +151,7 @@ class SwitchControl(QCheckBox):
 
     def __init__(
         self,
+        event_callback: Callable[[bool], None],
         parent: Optional[QWidget] = None,
         bg_color: str = "#777777",
         circle_color: str = "#222222",
@@ -182,6 +185,7 @@ class SwitchControl(QCheckBox):
         self.animation = QPropertyAnimation(self.__circle, b"pos")
         self.animation.setEasingCurve(animation_curve)
         self.animation.setDuration(animation_duration)
+        self.toggled.connect(event_callback)
 
         if checked:
             self.__circle.move(self.width() - 26, 3)
@@ -298,6 +302,8 @@ class SwitchBox(QWidget):
     ----------
     label : str
         The text to be displayed as the label for the switch.
+    event_callback : Callable[[bool], None]
+        A function that is called whenever the switch is toggled.        
     bg_color : str, optional
         The background color of the switch (default is "#777777").
     circle_color : str, optional
@@ -321,6 +327,7 @@ class SwitchBox(QWidget):
     def __init__(
         self,
         label: str,
+        event_callback: Callable[[bool], None],
         bg_color: str = "#777777",
         circle_color: str = "#222222",
         active_color: str = "#aa00ff",
@@ -339,6 +346,7 @@ class SwitchBox(QWidget):
         self.control_layout.addWidget(self.q_label)
         self.control_layout.addSpacing(spacing)
         self.switch = SwitchControl(
+            event_callback= event_callback,
             bg_color=bg_color,
             circle_color=circle_color,
             active_color=active_color,

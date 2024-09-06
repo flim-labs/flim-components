@@ -13,7 +13,7 @@ class AcquisitionsAveragesSelector(InputSelect):
         self,
         label: str = "#averages:",
         selected_value: int = 0,
-        options: List[str] =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        options: List[str] =  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
         event_callback: Callable[[int], None] = None,
         layout_type: str = "vertical",
         stylesheet: str | None = None,

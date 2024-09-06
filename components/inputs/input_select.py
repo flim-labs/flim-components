@@ -79,6 +79,17 @@ class InputSelect(QWidget):
         """
         self.dropdown.setCurrentIndex(index)
         
+    def get_selected_text(self) -> str:
+        """
+        Get the text of the currently selected option in the dropdown menu.
+
+        Returns
+        -------
+        str
+            The text of the selected option.
+        """
+        return self.dropdown.currentText()        
+        
     def add_option(self, option: str):
         """
         Add a new option to the dropdown menu.

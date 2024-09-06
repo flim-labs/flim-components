@@ -1,8 +1,9 @@
 from typing import Callable, Optional
 from PyQt6.QtCore import pyqtSignal
-from PyQt6.QtWidgets import QWidget, QCheckBox, QHBoxLayout, QLabel
+from PyQt6.QtWidgets import QWidget, QCheckBox, QHBoxLayout, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt
 from components.inputs.fancy_checkbox import PaintedCheckbox
+from layouts.compact_layout import CompactLayout
 from styles.inputs_styles import InputStyles
 
 
@@ -67,6 +68,9 @@ class Checkbox(QWidget):
         super().__init__(parent)
         self.key = key
         self.label = label
+        self.checked = checked
+        self.visible = visible
+        self.enabled = enabled
         self.event_callback = event_callback
         self.checkbox_color = checkbox_color
         self.checkbox_color_unchecked = checkbox_color_unchecked
@@ -83,6 +87,7 @@ class Checkbox(QWidget):
         self.set_checked(checked)
         self.setEnabled(enabled)
         self.setVisible(visible)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
     def _init_standard_checkbox(self):
         """
@@ -92,7 +97,7 @@ class Checkbox(QWidget):
         self.checkbox.setCursor(Qt.CursorShape.PointingHandCursor)
         self.set_style(self.stylesheet)
         self.checkbox.stateChanged.connect(self._on_state_changed)
-        layout = QHBoxLayout(self)
+        layout = CompactLayout(QHBoxLayout())
         layout.addWidget(self.checkbox)
         self.setLayout(layout)
 
@@ -103,8 +108,8 @@ class Checkbox(QWidget):
         self.checkbox = PaintedCheckbox(
             self.checkbox_color,
             self.checkbox_color_unchecked,
-            checked=self.is_checked(),
-            enabled=self.isEnabled(),
+            checked=self.checked,
+            enabled=self.enabled,
             parent=self
         )
         self.label_widget = QLabel(self.label, self)
@@ -120,16 +125,16 @@ class Checkbox(QWidget):
         layout.addWidget(self.label_widget)
         self.setLayout(layout)
 
-    def _on_state_changed(self, state: int):
+    def _on_state_changed(self, state: bool | int):
         """
         Handle the state change event of the checkbox.
 
         Parameters
         ----------
         state : int
-            The new state of the checkbox, where 0 means unchecked and 2 means checked.
+            The new state of the checkbox, where 0 | False means unchecked and 2 | True means checked.
         """
-        checked = state == 2
+        checked = state == 2 or state == True
         self.event_callback(checked)
         self.toggled.emit(checked)
 
@@ -180,8 +185,9 @@ class Checkbox(QWidget):
             True if the checkbox is checked, False otherwise.
         """
         if self.fancy:
-            return self.checkbox.is_checked()
-        return self.checkbox.isChecked()
+            return self.checkbox.is_checked()  
+        return self.checkbox.isChecked()      
+    
 
     def set_label(self, label: str):
         """
@@ -260,6 +266,8 @@ class WrappedCheckbox(QWidget):
         The color of the label text. Defaults to "#f8f8f8".
     border_color : str, optional
         The color of the checkbox border. Defaults to "#252525".
+    wrapper_style_identifier : str, optional
+        The id name used in the custom stylesheet for the checkbox wrapper. Defaults to "wrapper".        
     checkbox_stylesheet : str, optional
         An optional stylesheet for further customizing the appearance of the checkbox itself. Defaults to None.
     checkbox_wrapper_stylesheet : str, optional
@@ -282,6 +290,7 @@ class WrappedCheckbox(QWidget):
         label_color: str = "#f8f8f8",
         border_color: str = "#252525",
         checkbox_stylesheet: Optional[str] = None,
+        wrapper_style_identifier: str = "wrapper",
         checkbox_wrapper_stylesheet: Optional[str] = None,
         checkbox_wrapper_height: int | None = None,
         checkbox_wrapper_width: int | None = None,
@@ -301,9 +310,8 @@ class WrappedCheckbox(QWidget):
         self.border_color = border_color
         self.checkbox_stylesheet = checkbox_stylesheet
         self.checkbox_wrapper_stylesheet = checkbox_wrapper_stylesheet
-
-        if self.checkbox_wrapper_stylesheet:
-            self.setStyleSheet(self.checkbox_wrapper_stylesheet)
+        self.wrapper = QWidget()
+        self.wrapper.setObjectName(wrapper_style_identifier)
 
         if checkbox_wrapper_height:
             self.setFixedHeight(checkbox_wrapper_height)
@@ -314,7 +322,13 @@ class WrappedCheckbox(QWidget):
 
         row = QHBoxLayout()
         row.addWidget(self.checkbox)
-        self.setLayout(row)
+        self.wrapper.setLayout(row)
+        vbox = CompactLayout(QVBoxLayout())
+        vbox.addWidget(self.wrapper)
+        self.setLayout(vbox)
+        
+        if self.checkbox_wrapper_stylesheet is not None:
+            self.wrapper.setStyleSheet(self.checkbox_wrapper_stylesheet)        
 
     def _create_checkbox(self) -> Checkbox:
         """
