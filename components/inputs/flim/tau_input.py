@@ -1,3 +1,4 @@
+from typing import Literal
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_number import InputFloat
@@ -16,7 +17,7 @@ class TauInput(InputFloat):
         max_value: float = 1000,
         default_value: float = 0,  # Default tau value
         event_callback=None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         width: int | None = None,
         stylesheet: str | None = None
     ):

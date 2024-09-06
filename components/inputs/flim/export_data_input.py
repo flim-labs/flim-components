@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 
 from components.inputs.switch import SwitchBox
 
@@ -13,7 +13,7 @@ class ExportDataSwitch(SwitchBox):
         self,
         label: str = "Export data:",
         event_callback=None,
-        layout_type: str = "horizontal",
+        layout_type: Literal["horizontal", "vertical"] = "horizontal",
         width: Optional[int] = 70,
         height: Optional[int] = 30,
         spacing: Optional[int] = 8,

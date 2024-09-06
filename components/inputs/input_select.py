@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QWidget
-from typing import List, Callable, Optional
+from typing import List, Callable, Literal, Optional
 
 from styles.inputs_styles import InputStyles
 from utils.layout_utils import LayoutUtils
@@ -23,7 +23,7 @@ class InputSelect(QWidget):
         Whether the dropdown menu is initially enabled (default is True).
     visible : bool, optional
         Whether the widget is initially visible (default is True).        
-    layout_type : str, optional
+    layout_type : Literal ["horizontal", "vertical"], optional
         The layout type for the dropdown menu and label, either "vertical" (default) or "horizontal".
     stylesheet : str, optional
         An optional stylesheet to customize the appearance of the dropdown menu (default is None).        
@@ -41,7 +41,7 @@ class InputSelect(QWidget):
         event_callback: Callable[[int], None],
         visible: bool = True,
         enabled: bool = True,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = None,
         parent: Optional[QWidget] = None,

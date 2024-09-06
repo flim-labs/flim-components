@@ -1,4 +1,4 @@
-from typing import Callable, Optional, TypedDict
+from typing import Callable, Literal, Optional, TypedDict
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 
@@ -15,10 +15,11 @@ class InputIntegerParams(TypedDict, total=False):
     max_value: int | float
     default_value: int | float
     event_callback: Callable[[int | float], None]
-    layout_type: str
+    layout_type: Literal["horizontal", "vertical"]
     width: int | None
     stylesheet: str | None
     parent: QWidget | None
+
 
 class SliderParams(TypedDict, total=False):
     orientation: Qt.Orientation

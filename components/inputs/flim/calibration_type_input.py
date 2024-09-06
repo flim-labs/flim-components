@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_select import InputSelect
@@ -15,7 +15,7 @@ class CalibrationTypeSelector(InputSelect):
         selected_value: int = 0,
         options: List[str] =  ["None", "Phasors Ref."],
         event_callback: Callable[[int], None] = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = None,
         parent: Optional[QWidget] = None

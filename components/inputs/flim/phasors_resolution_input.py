@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_select import InputSelect
@@ -15,7 +15,7 @@ class PhasorsResolutionSelector(InputSelect):
         selected_value: int = 2,
         options: List[str] =  ["16", "32", "64", "128", "256", "512"],
         event_callback: Callable[[int], None] = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = 70,
         parent: Optional[QWidget] = None

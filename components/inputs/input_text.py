@@ -1,3 +1,4 @@
+from typing import Literal
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QLineEdit, QWidget
 
 from styles.inputs_styles import InputStyles
@@ -20,7 +21,7 @@ class InputText(QWidget):
         Whether the input field is initially enabled (default is True).
     visible : bool, optional
         Whether the widget is initially visible (default is True).               
-    layout_type : str, optional
+    layout_type : Literal ["horizontal", "vertical"], optional
         The layout type for the input and label, either "vertical" (default) or "horizontal".
     text : str, optional
         The initial text to set in the input field (default is an empty string).
@@ -39,7 +40,7 @@ class InputText(QWidget):
         enabled: bool = True,
         visible: bool = True,
         placeholder: str | None = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         text: str = "",
         width: int | None = None,
         stylesheet: str | None = None,

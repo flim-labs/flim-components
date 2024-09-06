@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 
 from components.inputs.switch import SwitchBox
 
@@ -12,7 +12,7 @@ class AcquisitionModeSwitch(SwitchBox):
     def __init__(
         self,
         label: str = "Free running:",
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         event_callback=None,
         width: Optional[int] = 80,
         height: Optional[int] = 28,

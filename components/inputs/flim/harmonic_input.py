@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_number import InputInteger
@@ -20,7 +20,7 @@ class HarmonicsInput(InputInteger):
         max_value: int = 4,
         default_value: int = 0,  # Default harmonics value
         event_callback=None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         width: int | None = None,
         stylesheet: str | None = None
     ):
@@ -49,7 +49,7 @@ class HarmonicSelector(InputSelect):
         selected_value: int = 0,
         options: List[str] =  ["1", "2", "3", "4"],
         event_callback: Callable[[int], None] = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = None,
         parent: Optional[QWidget] = None

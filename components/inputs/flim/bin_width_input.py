@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_number import InputInteger
@@ -18,7 +18,7 @@ class BinWidthInput(InputInteger):
         max_value: int = 1000000,
         default_value: int = 1000,  # Default bin width value
         event_callback=None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         width: int | None = None,
         stylesheet: str | None = None
     ):
@@ -47,7 +47,7 @@ class BinWidthSelector(InputSelect):
         selected_value: int = 1,
         options: List[str] =  ["1", "10", "100", "1000"],
         event_callback: Callable[[int], None] = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = None,
         parent: Optional[QWidget] = None

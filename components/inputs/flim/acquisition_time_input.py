@@ -1,3 +1,4 @@
+from typing import Literal
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_number import InputInteger
@@ -16,7 +17,7 @@ class AcquisitionTimeInput(InputInteger):
         max_value: int = 1800,
         default_value: int = 1,  # Default acquisition time value
         event_callback=None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         width: int | None = None,
         stylesheet: str | None = None
     ):

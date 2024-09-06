@@ -1,3 +1,4 @@
+from typing import Literal
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_number import InputInteger
@@ -17,7 +18,7 @@ class TimeShiftInput(InputInteger):
         max_value: int = 255,
         default_value: int = 0,  # Default time shift value
         event_callback=None,
-        layout_type: str = "horizontal",
+        layout_type: Literal["horizontal", "vertical"] = "horizontal",
         width: int | None = None,
         stylesheet: str | None = None
     ):

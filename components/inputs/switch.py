@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from typing import Callable, Literal, Optional
 from PyQt6.QtCore import Qt, QPoint, QPropertyAnimation, QEasingCurve
 from PyQt6.QtGui import QPainter, QColor, QMouseEvent
 from PyQt6.QtWidgets import QWidget, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
@@ -322,7 +322,7 @@ class SwitchBox(QWidget):
         The height of the switch (default is 28).
     spacing : int, optional
         The spacing between the label and the switch (default is 8).
-    layout_type : str, optional
+    layout_type : Literal ["horizontal", "vertical"], optional
         The layout type for the label and switch, either "vertical" or "horizontal" (default is "vertical").
     parent : QWidget, optional
         The parent widget of this switch box (default is None).
@@ -341,7 +341,7 @@ class SwitchBox(QWidget):
         width: int = 80,
         height: int = 28,
         spacing: int = 8,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         parent: QWidget = None,
     ):
         super().__init__(parent)

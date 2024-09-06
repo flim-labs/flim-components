@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Literal
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QSpinBox, QDoubleSpinBox, QWidget, QSizePolicy
 from layouts.compact_layout import CompactLayout
 from styles.inputs_styles import InputStyles
@@ -25,7 +25,7 @@ class BaseInputNumber(QWidget):
         Whether the input is initially enabled (default is True).
     visible : bool, optional
         Whether the widget is initially visible (default is True).               
-    layout_type : str, optional
+    layout_type : Literal ["horizontal", "vertical"], optional
         The layout type for the input and label, either "vertical" (default) or "horizontal".
     width : int, optional
         The default fixed input widget width (default is None).          
@@ -43,7 +43,7 @@ class BaseInputNumber(QWidget):
         event_callback: Callable[[int | float], None],
         enabled: bool = True,
         visible: bool = True,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         width: int | None = None,
         stylesheet: str | None = None,
         parent: QWidget = None,

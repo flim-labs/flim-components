@@ -7,7 +7,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import QSize, Qt, pyqtSignal
 from PyQt6.QtGui import QIcon
-from typing import List, Tuple, Optional
+from typing import List, Literal, Tuple, Optional
 from styles.buttons_styles import ButtonStyles
 
 
@@ -107,7 +107,7 @@ class SelectButtonGroup(QWidget):
             - The text displayed on the button.
             - A unique identifier for the button.
             - The file path to the icon displayed on the button (can be None if no icon).
-        layout_type : str
+        layout_type : Literal ["horizontal", "vertical", "grid"], optional
             The layout type for the buttons. Options are "horizontal", "vertical", "grid".
         layout_options : Optional[dict]
             Configuration options for the layout. For "grid" layout, specify "rows" and "columns".
@@ -160,7 +160,7 @@ class SelectButtonGroup(QWidget):
     def __init__(
         self,
         button_configs: List[Tuple[str, str, str]],
-        layout_type: str = "horizontal",
+        layout_type: Literal["horizontal", "vertical", "grid"] = "horizontal",
         layout_options: Optional[dict] = None,
         default_selected: Optional[str] = None,
         icon_size: Optional[QSize] = None,

@@ -1,4 +1,4 @@
-from typing import Callable, List, Optional
+from typing import Callable, List, Literal, Optional
 from PyQt6.QtWidgets import QWidget
 
 from components.inputs.input_select import InputSelect
@@ -15,7 +15,7 @@ class AcquisitionsAveragesSelector(InputSelect):
         selected_value: int = 0,
         options: List[str] =  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
         event_callback: Callable[[int], None] = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         stylesheet: str | None = None,
         width: Optional[int] = None,
         parent: Optional[QWidget] = None

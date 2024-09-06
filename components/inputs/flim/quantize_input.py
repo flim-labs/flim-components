@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Literal, Optional
 
 from components.inputs.switch import SwitchBox
 
@@ -13,7 +13,7 @@ class QuantizeSwitch(SwitchBox):
         self,
         label: str = "Quantize Phasors:",
         event_callback=None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         width: Optional[int] = 80,
         height: Optional[int] = 28,
         spacing: Optional[int] = 8,

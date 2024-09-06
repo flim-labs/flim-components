@@ -1,3 +1,4 @@
+from typing import Literal
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QPlainTextEdit, QWidget
 
 from styles.inputs_styles import InputStyles
@@ -23,7 +24,7 @@ class TextArea(QWidget):
         Whether the widget is initially visible (default is True).               
     max_chars : int, optional
         The maximum number of characters allowed in the text area (default is None).
-    layout_type : str, optional
+    layout_type : Literal ["horizontal", "vertical"], optional
         The layout type for the text area and label, either "vertical" (default) or "horizontal".
     text : str, optional
         The initial text to set in the text area (default is an empty string).
@@ -43,7 +44,7 @@ class TextArea(QWidget):
         visible: bool = True,
         max_chars: int | None = None,
         placeholder: str | None = None,
-        layout_type: str = "vertical",
+        layout_type: Literal["horizontal", "vertical"] = "vertical",
         text: str = "",
         width: int | None = None,
         stylesheet: str | None = None,
