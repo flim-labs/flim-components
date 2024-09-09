@@ -15,12 +15,31 @@ class LoadingWidget(QWidget):
     """
     A custom loading widget that displays a loading animation (GIF) and a label.
     The label can be positioned relative to the GIF (left, right, top, bottom).
+    
+    Parameters
+    ----------
+    label_text : str, optional
+        The text to be displayed on the label (default is "Processing data...").
+    gif_path : str
+        The path to the GIF file for the loading animation.
+    label_position : Literal["top", "right", "bottom", "left"], optional
+        The position of the label relative to the GIF (default is "left").
+    label_style : str, optional
+        The stylesheet to apply to the label (default provides a custom Montserrat style).
+    gif_size : QSize, optional
+        The size of the loading GIF (default is QSize(36, 36)).
+    spacing : int, optional
+        The spacing between the label and the GIF (default is 20).
+    visible : bool, optional
+        Whether the widget is initially visible (default is False).            
+    parent : QWidget, optional
+        The parent widget for this loading widget (default is None).    
     """
 
     def __init__(
         self,
         label_text: str = "Processing data...",
-        gif_path: str = resource_path("../../assets/loading.gif"),
+        gif_path: str = resource_path("assets/loading.gif"),
         label_position: Literal["top", "right", "bottom", "left"] = "left",
         label_style: str = "font-family: Montserrat; font-size: 18px; font-weight: bold; color: #50b3d7",
         gif_size: QSize = QSize(36, 36),
@@ -28,28 +47,6 @@ class LoadingWidget(QWidget):
         visible: bool = False,
         parent: QWidget = None,
     ):
-        """
-        Initializes the LoadingWidget.
-
-        Parameters
-        ----------
-        label_text : str, optional
-            The text to be displayed on the label (default is "Processing data...").
-        gif_path : str
-            The path to the GIF file for the loading animation.
-        label_position : Literal["top", "right", "bottom", "left"], optional
-            The position of the label relative to the GIF (default is "left").
-        label_style : str, optional
-            The stylesheet to apply to the label (default provides a custom Montserrat style).
-        gif_size : QSize, optional
-            The size of the loading GIF (default is QSize(36, 36)).
-        spacing : int, optional
-            The spacing between the label and the GIF (default is 20).
-        visible : bool, optional
-            Whether the widget is initially visible (default is False).            
-        parent : QWidget, optional
-            The parent widget for this loading widget (default is None).
-        """
         super().__init__(parent)
 
         # Initialize the label with the provided text and style

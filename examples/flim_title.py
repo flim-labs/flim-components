@@ -16,7 +16,7 @@ class FlimTitleExampleWindow(QWidget):
         self.setStyleSheet("background-color: #121212; color: white;")
 
         layout = QVBoxLayout()
-        icon= resource_path.resource_path("../assets/flimlabs-logo.png")
+        icon= resource_path.resource_path("assets/flimlabs-logo.png")
 
         flim_title = FlimTitle(
             icon_path=icon,  

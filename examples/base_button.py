@@ -30,7 +30,7 @@ class ButtonExampleWindow(QWidget):
             bg_color_pressed="#4169E1"
         )
         
-        icon= resource_path.resource_path("../assets/chart-icon.png")
+        icon= resource_path.resource_path("assets/chart-icon.png")
         button_with_icon = BaseButton(
             text="Icon Button", 
             width=150, 

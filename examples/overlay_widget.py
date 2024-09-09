@@ -18,7 +18,7 @@ class OverlayWidgetExampleWindow(QWidget):
 
         layout = QVBoxLayout(self)
 
-        icon = resource_path("../assets/flimlabs-logo.png")
+        icon = resource_path("assets/flimlabs-logo.png")
         self.overlay = OverlayWidget(
             image_path=icon,
             image_width=100,

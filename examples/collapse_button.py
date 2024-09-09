@@ -28,8 +28,8 @@ class CollapseButtonExampleWindow(QWidget):
         # Create the collapse button
         self.collapse_button = CollapseButton(
             collapsible_widget=self.collapsible_widget,
-            expanded_icon=resource_path.resource_path("../assets/arrow-up-dark-grey.png"),
-            collapsed_icon=resource_path.resource_path("../assets/arrow-down-dark-grey.png"),
+            expanded_icon=resource_path.resource_path("assets/arrow-up-dark-grey.png"),
+            collapsed_icon=resource_path.resource_path("assets/arrow-down-dark-grey.png"),
             width=50,
             height=50,
             enabled=True,

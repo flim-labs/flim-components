@@ -20,7 +20,7 @@ class LoadingWidgetExampleWindow(QWidget):
         loading_widget = LoadingWidget(
             visible=True,
             label_position="left",
-            gif_path=resource_path("../assets/loading.gif"),
+            gif_path=resource_path("assets/loading.gif"),
         )
         layout.addWidget(loading_widget)
 
