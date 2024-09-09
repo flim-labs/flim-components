@@ -1,12 +1,13 @@
+import json
 import os
+from typing import Any, Dict
 from PyQt6.QtWidgets import QFileDialog
 
 
 class FileUtils:
     """
     A utility class providing file-related (and Flim file-related) helper methods,
-    such as selecting directories, comparing file timestamps,
-    and retrieving recent files based on modification times.
+    such as selecting directories, comparing file timestamps and retrieving files.
     """
 
     @staticmethod
@@ -51,9 +52,6 @@ class FileUtils:
 
         Returns:
         - str: The path to the most recent spectroscopy file.
-
-        Raises:
-        - FileNotFoundError: If no spectroscopy files are found.
         """
         data_folder = os.path.join(root_folder, ".flim-labs", "data")
         files = [
@@ -81,9 +79,6 @@ class FileUtils:
 
         Returns:
         - str: The path to the most recent phasors file.
-
-        Raises:
-        - FileNotFoundError: If no phasors files are found.
         """
         data_folder = os.path.join(root_folder, ".flim-labs", "data")
         files = [
@@ -109,9 +104,6 @@ class FileUtils:
 
         Returns:
         - str: The path to the most recent intensity tracing file.
-
-        Raises:
-        - FileNotFoundError: If no intensity tracing files are found.
         """
         data_folder = os.path.join(root_folder, ".flim-labs", "data")
         files = [
@@ -173,3 +165,30 @@ class FileUtils:
             key=lambda x: os.path.getmtime(os.path.join(data_folder, x)), reverse=True
         )
         return os.path.join(data_folder, files[0])
+        
+    @staticmethod
+    def extract_file_metadata(file_path: str, magic_number: bytes) -> Dict[str, Any]:
+        """
+        Extracts metadata from a .bin file given a specific magic number.
+
+        This method reads the file specified by `file_path`, verifies that the first 4 bytes match the `magic_number`,
+        reads the length of the metadata header, and then reads and parses the metadata header as JSON.
+
+        Parameters
+        ----------
+        file_path : str
+            The path to the file from which metadata will be extracted.
+        magic_number : bytes
+            A 4-byte magic number used to verify the file's format.
+
+        Returns
+        -------
+        Dict[str, Any]
+            A dictionary containing the metadata extracted from the file. The keys and values depend on the content of the JSON metadata.
+        """
+        with open(file_path, "rb") as f:
+            assert f.read(4) == magic_number
+            header_length = int.from_bytes(f.read(4), byteorder="little")
+            header = f.read(header_length)
+            metadata = json.loads(header)
+        return metadata

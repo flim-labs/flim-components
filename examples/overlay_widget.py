@@ -1,12 +1,12 @@
 import sys
 import os
 
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import QEvent
 from layouts.overlay_widget import OverlayWidget
 from utils.resource_path import resource_path
-
 
 class OverlayWidgetExampleWindow(QWidget):
     def __init__(self):

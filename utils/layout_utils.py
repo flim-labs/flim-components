@@ -1,6 +1,8 @@
 
 from PyQt6.QtGui import QGuiApplication, QCursor
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QWidget, QApplication
+
+from components.popups.popup import Popup
 
 
 class LayoutUtils:
@@ -124,3 +126,16 @@ class LayoutUtils:
             if screen.geometry().contains(cursor_pos):
                 return screen_number
         return -1
+    
+    @staticmethod
+    def close_all_popups() -> None:
+        """
+        Closes all widgets that are instances of Popup class.
+        """
+        app = QApplication.instance()  # Get the current application instance
+        if app is None:
+            raise RuntimeError("No QApplication instance found.")
+        # Iterate through all widgets
+        for widget in app.allWidgets():
+            if isinstance(widget, Popup):
+                widget.close()

@@ -19,6 +19,7 @@ from components.inputs.flim.export_data_input import ExportDataSwitch
 from components.inputs.flim.quantize_input import QuantizeSwitch
 from components.inputs.flim.time_shift_input import TimeShiftInput
 from components.inputs.slider import SliderWithInputFactory
+from components.inputs.flim.lin_log_input import LinLogSwitch
 
 
 class FlimInputsExampleWindow(QWidget):
@@ -66,6 +67,8 @@ class FlimInputsExampleWindow(QWidget):
             input_position="right",
             spacing=20,
         )
+        # Lin log input
+        self.lin_log = LinLogSwitch(event_callback=self.on_lin_log_value_changed)
 
         layout = QGridLayout()
 
@@ -87,6 +90,8 @@ class FlimInputsExampleWindow(QWidget):
         layout.addWidget(self.export_data, 3, 0) 
         layout.addWidget(self.quantize_input, 3, 1)
         layout.addWidget(self.time_shift_slider, 3, 2)
+        
+        layout.addWidget(self.lin_log, 4, 0)
 
         self.setLayout(layout)
         
@@ -134,7 +139,10 @@ class FlimInputsExampleWindow(QWidget):
         print(f"Quantize set to: {state}")   
                                                   
     def on_time_shift_slider_value_changed (self, value: int):
-        print(f"Time shift slider set to: {value}")                               
+        print(f"Time shift slider set to: {value}")    
+        
+    def on_lin_log_value_changed(self, state: bool):
+        print(f"Linear mode set to: {state}")                                           
 
 
 if __name__ == "__main__":

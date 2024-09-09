@@ -71,9 +71,13 @@ class InputStyles:
             }} 
         """
 
-
     @staticmethod
-    def checkbox_style(checkbox_color_checked: str, checkbox_color_unchecked: str, label_color: str, border_color: str):
+    def checkbox_style(
+        checkbox_color_checked: str,
+        checkbox_color_unchecked: str,
+        label_color: str,
+        border_color: str,
+    ):
         return f"""
             QCheckBox {{
                 spacing: 5px;
@@ -99,9 +103,11 @@ class InputStyles:
                 background-color: {checkbox_color_checked};
             }}         
         """
-        
-    @staticmethod            
-    def wrapped_checkbox_style(checkbox_color_checked: str, checkbox_color_unchecked: str, label_color: str):
+
+    @staticmethod
+    def wrapped_checkbox_style(
+        checkbox_color_checked: str, checkbox_color_unchecked: str, label_color: str
+    ):
         return f"""
             QCheckBox {{
                 spacing: 5px;
@@ -124,9 +130,8 @@ class InputStyles:
             QCheckBox::indicator:checked {{
                 background-color: {checkbox_color_checked};
             }}
-        """  
-           
-           
+        """
+
     @staticmethod
     def checkbox_wrapper_style():
         return f"""
@@ -142,4 +147,14 @@ class InputStyles:
             QWidget {{
                 background-color: #222222;
             }}      
+        """
+
+    @staticmethod
+    def dual_labels_switch_style():
+        return """
+            QLabel {
+                color: "#cecece";
+                font-family: Montserrat;
+                font-size: 14px;
+            }    
         """
