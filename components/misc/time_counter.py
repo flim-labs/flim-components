@@ -84,6 +84,7 @@ class TimeCounter(QLabel):
         self.start_time = start_time
         self.end_time = end_time
         self.label_text = label_text
+        self.setContentsMargins(0,0,0,0)
         self.set_visible(visible)
         self.set_style(stylesheet)
 

@@ -9,6 +9,8 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import pyqtSignal
 from typing import Literal, Optional
 
+from components.misc.time_counter import TimeCounter
+from layouts.compact_layout import CompactLayout
 from styles.progress_bar_styles import ProgressBarStyles
 
 
@@ -39,6 +41,8 @@ class ProgressBar(QWidget):
         The width of the progress bar in pixels. If None, the width adjusts to fit the content.
     indeterminate : bool
         Whether the progress bar is in indeterminate mode (default is False).
+    time_counter : TimeCounter | None, optional
+        The time counter widget, if any, to incorporate (default is None).        
     parent : Optional[QWidget]
         The parent widget of this progress bar (default is None).
     """
@@ -57,20 +61,26 @@ class ProgressBar(QWidget):
         progress_bar_height: int | None = 15,
         progress_bar_width: int | None = None,
         indeterminate: bool = False,
+        time_counter: TimeCounter = None,
         parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent)
         self.color = color
         self.indeterminate = indeterminate
+        self.time_counter = time_counter
 
         # Initialize layout based on layout_type
         if layout_type == "horizontal":
             self.layout = QHBoxLayout()
         else:
             self.layout = QVBoxLayout()
+            
+        self.label_layout = QHBoxLayout()
+        self.label_layout.setContentsMargins(0,0,0,0)   
+        self.label_layout.setSpacing(0) 
 
         self.layout.setContentsMargins(0, 0, 0, 0)
-
+       
         # Set the spacing between widgets in the layout if label_text is provided
         if label_text is not None:
             self.layout.setSpacing(spacing)
@@ -89,11 +99,23 @@ class ProgressBar(QWidget):
         # Add widgets to the layout
         if layout_type == "horizontal":
             self.layout.addWidget(self.progress_bar)
-            if label_text is not None:
-                self.layout.addWidget(self.label)
+
+        if label_text is not None:
+            self.label_layout.addWidget(self.label)
+
+        if self.time_counter is not None:
+            self.time_counter.setContentsMargins(0, 3, 0, 0)
+            self.label_layout.addSpacing(10 if label_text is not None else 0)
+            self.label_layout.addWidget(self.time_counter)
+            self.label_layout.addStretch(1)
+
+        # Condizionalmente aggiungi la label_layout e la progress bar
+        if layout_type == "horizontal":
+            if label_text is not None or self.time_counter is not None:
+                self.layout.addLayout(self.label_layout)
         else:
-            if label_text is not None:
-                self.layout.addWidget(self.label)
+            if label_text is not None or self.time_counter is not None:
+                self.layout.addLayout(self.label_layout)
             self.layout.addWidget(self.progress_bar)
 
         self.setLayout(self.layout)

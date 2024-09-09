@@ -18,6 +18,18 @@ class CompactLayout(QLayout):
         """
         self.layout.setSpacing(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
+        
+    def addSpacing(self, spacing: int) -> None:
+        """
+        Add spacing to the layout.
+        """
+        self.layout.addSpacing(spacing)      
+        
+    def addStretch(self, stretch: int) -> None:
+        """
+        Add stretch to the layout.
+        """
+        self.layout.addStretch(stretch)             
 
     def addItem(self, item: QLayoutItem) -> None:
         """
