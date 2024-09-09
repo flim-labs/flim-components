@@ -1,4 +1,4 @@
-from typing import Callable, Literal, Optional, TypedDict
+from typing import Callable, Literal, Optional, Tuple, TypedDict
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import Qt
 
@@ -31,3 +31,46 @@ class SliderParams(TypedDict, total=False):
     enabled: bool = True
     stylesheet: Optional[str] = None
     parent: Optional["QWidget"] = None
+
+
+class PlotAxisParams(TypedDict):
+    label: str
+    label_color: str
+    axis_color: str
+    units: str
+    
+    
+class PlotGridParams(TypedDict):
+    show_x: bool
+    show_y: bool
+    alpha: float    
+    
+
+class PlotDimensionsParams(TypedDict):
+    width: int | None
+    height: int | None
+    min_width: int | None
+    min_height: int | None
+    max_width: int | None
+    max_height: int | None    
+    
+
+class PenParams(TypedDict):
+    color: str | Tuple[int, int, int]
+    width: int
+    
+class PlotScatterStyleParams(TypedDict):
+    size: int
+    pen: PenParams | None
+    brush: str | None
+    symbol: str
+        
+        
+class PlotTextItemParams(TypedDict):
+    text: str
+    is_html: bool
+    color: str | Tuple[int, int, int]
+    anchor: Tuple[float, float] 
+    position: Tuple[float, float] | None  
+    pixel_size: int
+     

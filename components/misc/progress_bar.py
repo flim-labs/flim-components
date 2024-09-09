@@ -37,6 +37,8 @@ class ProgressBar(QWidget):
         The height of the progress bar in pixels (default is 15). If None, the default height is used.
     progress_bar_width : int | None
         The width of the progress bar in pixels. If None, the width adjusts to fit the content.
+    indeterminate : bool
+        Whether the progress bar is in indeterminate mode (default is False).
     parent : Optional[QWidget]
         The parent widget of this progress bar (default is None).
     """
@@ -54,18 +56,21 @@ class ProgressBar(QWidget):
         spacing: int = 10,
         progress_bar_height: int | None = 15,
         progress_bar_width: int | None = None,
+        indeterminate: bool = False,
         parent: Optional[QWidget] = None,
     ) -> None:
         super().__init__(parent)
         self.color = color
+        self.indeterminate = indeterminate
 
         # Initialize layout based on layout_type
         if layout_type == "horizontal":
             self.layout = QHBoxLayout()
         else:
             self.layout = QVBoxLayout()
-            
-        self.layout.setContentsMargins(0,0,0,0)
+
+        self.layout.setContentsMargins(0, 0, 0, 0)
+
         # Set the spacing between widgets in the layout if label_text is provided
         if label_text is not None:
             self.layout.setSpacing(spacing)
@@ -96,6 +101,25 @@ class ProgressBar(QWidget):
         self.set_enabled(enabled)
         self.set_style(stylesheet)
 
+        # Set the progress bar to indeterminate mode if specified
+        if indeterminate:
+            self.set_indeterminate_mode(True)
+
+    def set_indeterminate_mode(self, state: bool) -> None:
+        """
+        Enable or disable the indeterminate mode of the progress bar.
+
+        Parameters
+        ----------
+        state : bool
+            If True, sets the progress bar to indeterminate mode; if False, switches to determinate mode.
+        """
+        if state:
+            self.progress_bar.setRange(0, 0)  # Indeterminate mode
+        else:
+            self.progress_bar.setRange(0, 100)  # Switch back to determinate mode
+        QApplication.processEvents()
+
     def update_progress(
         self, current_value: int, total_value: int, label_text: Optional[str] = None
     ) -> None:
@@ -111,23 +135,25 @@ class ProgressBar(QWidget):
         label_text : Optional[str], optional
             The text to display in the label. If provided, the label's text is updated; otherwise, the label text remains unchanged.
         """
-        progress_value = (current_value / float(total_value)) * 100
-        self.progress_bar.setValue(int(progress_value))
-        if label_text:
-            self.label.setText(label_text)
+        if not self.indeterminate:
+            progress_value = (current_value / float(total_value)) * 100
+            self.progress_bar.setValue(int(progress_value))
+            if label_text:
+                self.label.setText(label_text)
             
-        # Emit signal if progress is complete
-        if progress_value >= 100:
-            self.complete.emit()            
-        QApplication.processEvents()
+            # Emit signal if progress is complete
+            if progress_value >= 100:
+                self.complete.emit()            
+            QApplication.processEvents()
 
     def clear_progress(self) -> None:
         """
         Clear the progress bar and reset it to zero. This also clears the label text.
         """
-        self.progress_bar.setValue(0)
-        self.label.clear()
-        QApplication.processEvents()
+        if not self.indeterminate:
+            self.progress_bar.setValue(0)
+            self.label.clear()
+            QApplication.processEvents()
         
     def get_value(self) -> int:
         """

@@ -1,3 +1,8 @@
+
+from PyQt6.QtGui import QGuiApplication, QCursor
+from PyQt6.QtWidgets import QWidget
+
+
 class LayoutUtils:
     """
     A utility class providing static methods for manipulating layouts in PyQt6.
@@ -74,3 +79,48 @@ class LayoutUtils:
                     if sub_layout is not None:
                         LayoutUtils.clear_layout(sub_layout)
             layout.deleteLater()
+
+    @staticmethod
+    def center_window(window: QWidget) -> None:
+        """
+        Centers the given window on a specified screen. 
+
+        Parameters:
+        ----------
+        window : QWidget
+            The window to be centered. It must be a QWidget or subclass thereof.
+        """
+        # Determine which screen to use
+        screen_number = LayoutUtils.get_current_screen()
+        if screen_number == -1:
+            screen = QGuiApplication.primaryScreen()
+        else:
+            screen = QGuiApplication.screens()[screen_number]        
+        # Get the screen and window geometry
+        screen_geometry = screen.geometry()
+        window_geometry = window.frameGeometry()
+        # Center the window on the screen
+        screen_center = screen_geometry.center()
+        window_geometry.moveCenter(screen_center)
+        window.move(window_geometry.topLeft())
+    
+    @staticmethod
+    def get_current_screen() -> int:
+        """
+        Determines the index of the screen currently under the cursor.
+
+        The function checks the position of the cursor and determines which of the available screens 
+        contains the cursor. It iterates through all connected screens and returns the index of the 
+        screen that contains the cursor. If the cursor is not over any screen, it returns -1.
+
+        Returns:
+        -------
+        int
+            The index of the screen containing the cursor, or -1 if no screen contains the cursor.
+        """
+        cursor_pos = QCursor.pos()
+        screens = QGuiApplication.screens()
+        for screen_number, screen in enumerate(screens):
+            if screen.geometry().contains(cursor_pos):
+                return screen_number
+        return -1
