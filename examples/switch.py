@@ -3,7 +3,8 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from components.inputs.switch import DualLabelSwitchBox, SwitchBox  
+from components.inputs.switch import DualLabelSwitchBox, SwitchBox
+
 
 class SwitchExampleWindow(QWidget):
     def __init__(self):
@@ -24,10 +25,14 @@ class SwitchExampleWindow(QWidget):
             width=80,
             height=28,
             spacing=10,
-            layout_type="horizontal"
+            layout_type="horizontal",
         )
-        
-        dual_label_switch = DualLabelSwitchBox(event_callback=self.on_dual_label_switch_toggled, label_on="ON", label_off="OFF")
+
+        dual_label_switch = DualLabelSwitchBox(
+            event_callback=self.on_dual_label_switch_toggled,
+            label_on="ON",
+            label_off="OFF",
+        )
 
         layout.addWidget(switch_box)
         layout.addSpacing(20)
@@ -37,9 +42,10 @@ class SwitchExampleWindow(QWidget):
 
     def on_switch_toggled(self, state):
         print("Switch is now:", "ON" if state else "OFF")
-        
+
     def on_dual_label_switch_toggled(self, state):
-        print("Dual Label Switch is now:", "ON" if state else "OFF")        
+        print("Dual Label Switch is now:", "ON" if state else "OFF")
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
