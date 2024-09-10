@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flim_components"
+version = "0.1.0"
+description = "A graphical library based on PyQt6 for developing and standardize FLIM LABS applications."
+authors = [
+    { name = "Aurora Sirigu", email = "aurora.sirigu@5bits.it" }
+]
+maintainers = [
+    { name = "Aurora Sirigu", email = "aurora.sirigu@5bits.it" }
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: User Interfaces",
+    "Framework :: PyQt",
+]
+
+[project.urls]
+homepage = "https://github.com/flim-labs/flim-components"

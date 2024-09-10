@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+recursive-include flim_components/assets *.py
+recursive-include flim_components/components *.py
+recursive-include flim_components/examples *.py
+recursive-include flim_components/layouts *.py
+recursive-include flim_components/models *.py
+recursive-include flim_components/styles *.py
+recursive-include flim_components/utils *.py
