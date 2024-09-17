@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flim_components"
-version = "0.1.3"
+version = "0.1.4"
 description = "A graphical library based on PyQt6 for developing and standardizing FLIM LABS applications."
 authors = [{ name="Aurora Sirigu", email="aurora.sirigu@5bits.it" }]
 maintainers = [
