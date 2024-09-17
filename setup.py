@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="flim_components",
-    version="0.1.4",
+    version="0.1.0",
     author="Aurora Sirigu",
     author_email="aurora.sirigu@5bits.it",
     description="A graphical library based on PyQt6 for developing and standardize FLIM LABS applications.",
