@@ -1,11 +1,10 @@
-import os
-import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import sys
 
 from PyQt6.QtWidgets import QApplication, QWidget, QHBoxLayout
 from PyQt6.QtCore import Qt
-from components.buttons.flim.time_tagger import TimeTaggerButton
+
+from flim_components.components.buttons.flim.time_tagger import TimeTaggerButton
 
 
 class TimeTaggerExampleWindow(QWidget):

@@ -3,8 +3,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt, QSize
 from typing import List, Tuple, Optional
 
-from components.typography.gradient_text import GradientText
-
+from flim_components.components.typography.gradient_text import GradientText
 
 class FlimTitle(QWidget):
     """

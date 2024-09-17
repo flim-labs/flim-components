@@ -9,9 +9,8 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import pyqtSignal
 from typing import Literal, Optional
 
-from components.misc.time_counter import TimeCounter
-from layouts.compact_layout import CompactLayout
-from styles.progress_bar_styles import ProgressBarStyles
+from flim_components.components.misc.time_counter import TimeCounter
+from flim_components.styles.progress_bar_styles import ProgressBarStyles
 
 
 class ProgressBar(QWidget):

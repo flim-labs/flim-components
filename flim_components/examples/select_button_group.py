@@ -1,11 +1,9 @@
-import os
+
 import sys
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt
-from components.buttons.select_buttons import SelectButtonGroup
+
+from flim_components.components.buttons.select_buttons import SelectButtonGroup
 
 class SelectButtonGroupExampleWindow(QWidget):
     def __init__(self):

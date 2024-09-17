@@ -1,12 +1,10 @@
-import os
-import sys
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import sys
 
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt
-from components.buttons.toggle_button import ToggleButton
 
+from flim_components.components.buttons.toggle_button import ToggleButton
 
 
 class ToggleButtonsExampleWindow(QWidget):

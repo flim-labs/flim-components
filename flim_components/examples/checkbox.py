@@ -1,12 +1,8 @@
 import sys
-import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QVBoxLayout, QWidget, QLabel, QHBoxLayout
-from components.inputs.checkbox import Checkbox, WrappedCheckbox
-from styles.inputs_styles import InputStyles
 
+from flim_components.components.inputs.checkbox import Checkbox, WrappedCheckbox
+from flim_components.styles.inputs_styles import InputStyles
 
 class CheckboxExampleWindow(QWidget):
     def __init__(self):

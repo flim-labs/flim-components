@@ -1,13 +1,5 @@
-import os
-from pathlib import Path
-import sys
+import importlib.resources as pkg_resources
 
 
-def resource_path(relative_path):
-    try:
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        print(str(Path(base_path) / relative_path))
-
-    return str(Path(base_path) / relative_path)
+def get_asset_path(asset_name: str) -> str:
+    return str(pkg_resources.files("flim_components").joinpath(asset_name))

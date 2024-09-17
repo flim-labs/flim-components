@@ -1,12 +1,12 @@
 import sys
-import os
 
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import QEvent
-from layouts.overlay_widget import OverlayWidget
-from utils.resource_path import resource_path
+
+from flim_components.layouts.overlay_widget import OverlayWidget
+from flim_components.utils import resource_path
+
 
 class OverlayWidgetExampleWindow(QWidget):
     def __init__(self):
@@ -18,7 +18,7 @@ class OverlayWidgetExampleWindow(QWidget):
 
         layout = QVBoxLayout(self)
 
-        icon = resource_path("assets/flimlabs-logo.png")
+        icon = resource_path.get_asset_path("assets/flimlabs-logo.png")
         self.overlay = OverlayWidget(
             image_path=icon,
             image_width=100,

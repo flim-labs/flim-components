@@ -2,9 +2,9 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QCheckBox, QVBoxLayout
 from typing import Callable, Optional
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
-from layouts.compact_layout import CompactLayout
-from utils.resource_path import resource_path
-from styles.buttons_styles import ButtonStyles
+from flim_components.layouts.compact_layout import CompactLayout
+from flim_components.styles.buttons_styles import ButtonStyles
+from flim_components.utils.resource_path import get_asset_path
 
 
 class TimeTaggerButton(QWidget):
@@ -36,7 +36,7 @@ class TimeTaggerButton(QWidget):
     checked : bool, optional
         Whether the checkbox is initially checked (default is True).
     icon_path : str | None, optional
-        The file path to the icon displayed next to the checkbox (default is the path to the "time-tagger" icon).
+        The file path to the icon displayed next to the checkbox (default loads from package assets a 'time-tagger' icon).
     icon_width : int, optional
         The width of the icon in pixels (default is 25).
     parent : Optional[QWidget], optional
@@ -56,7 +56,7 @@ class TimeTaggerButton(QWidget):
         enabled: bool = True,
         visible: bool = True,
         checked: bool = True,
-        icon_path: str | None = resource_path("assets/time-tagger-icon.png"),
+        icon_path: str | None = None,
         icon_width: int = 25,
         parent: Optional["QWidget"] = None,
     ) -> None:
@@ -74,7 +74,11 @@ class TimeTaggerButton(QWidget):
         layout = QHBoxLayout()
         layout.setSpacing(0)
         # time tagger icon
-        pixmap = QPixmap(icon_path).scaledToWidth(icon_width)
+        if icon_path is None:
+            icon_path = get_asset_path("assets/time-tagger-icon.png")
+ 
+        pixmap = QPixmap(icon_path)            
+        pixmap = pixmap.scaledToWidth(icon_width)
         icon = QLabel(pixmap=pixmap)
         # time tagger checkbox
         self.time_tagger_checkbox = QCheckBox(text)

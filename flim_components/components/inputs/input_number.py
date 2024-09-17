@@ -1,8 +1,8 @@
 from typing import Callable, Literal
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QSpinBox, QDoubleSpinBox, QWidget, QSizePolicy
-from layouts.compact_layout import CompactLayout
-from styles.inputs_styles import InputStyles
-from utils.layout_utils import LayoutUtils
+
+from flim_components.styles.inputs_styles import InputStyles
+from flim_components.utils.layout_utils import LayoutUtils
 
 
 class BaseInputNumber(QWidget):

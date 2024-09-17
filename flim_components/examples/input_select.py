@@ -1,10 +1,8 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from styles.inputs_styles import InputStyles
-from components.inputs.input_select import InputSelect 
+
+from flim_components.components.inputs.input_select import InputSelect
+from flim_components.styles.inputs_styles import InputStyles
 
 class InputSelectExampleWindow(QWidget):
     def __init__(self):

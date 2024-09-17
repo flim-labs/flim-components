@@ -1,6 +1,6 @@
 from typing import List
 
-from components.popups.box_message import WarningMessage
+from flim_components.components.popups.box_message import WarningMessage
 
 
 class SpectroscopyExperimentErrors:

@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QComboBox, QWidget
 from typing import List, Callable, Literal, Optional
 
-from styles.inputs_styles import InputStyles
-from utils.layout_utils import LayoutUtils
+from flim_components.styles.inputs_styles import InputStyles
+from flim_components.utils.layout_utils import LayoutUtils
 
 
 class InputSelect(QWidget):

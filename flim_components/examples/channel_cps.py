@@ -1,15 +1,12 @@
 import random
 import sys
-import os
 import time
 
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget,QHBoxLayout
 from PyQt6.QtCore import QTimer
-from components.misc.cps_counter import CPSCounter
-from components.misc.channel_cps import ChannelCPS
 
+from flim_components.components.misc.channel_cps import ChannelCPS
+from flim_components.components.misc.cps_counter import CPSCounter
 
 
 class ChannelCPSExampleWindow(QWidget):

@@ -1,11 +1,10 @@
 import sys
-import os
 
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from components.misc.loading_widget import LoadingWidget
-from utils.resource_path import resource_path
+
+from flim_components.components.misc.loading_widget import LoadingWidget
+from flim_components.utils import resource_path
+
 
 
 class LoadingWidgetExampleWindow(QWidget):
@@ -16,11 +15,13 @@ class LoadingWidgetExampleWindow(QWidget):
         self.setStyleSheet("background-color: #121212; color: white;")
 
         layout = QVBoxLayout(self)
+        
+        gif_path = resource_path.get_asset_path("assets/loading.gif")
 
         loading_widget = LoadingWidget(
             visible=True,
             label_position="left",
-            gif_path=resource_path("assets/loading.gif"),
+            gif_path=gif_path,
         )
         layout.addWidget(loading_widget)
 

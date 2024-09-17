@@ -1,16 +1,12 @@
-from PyQt6.QtWidgets import (
-    QWidget,
-    QLabel,
-    QVBoxLayout,
-    QHBoxLayout
-)
+from PyQt6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from typing import Literal
-from components.misc.cps_counter import CPSCounter
-from layouts.compact_layout import CompactLayout
-from styles.cps_counter_styles import CPSCounterStyles
-from utils.resource_path import resource_path
+
+from flim_components.components.misc.cps_counter import CPSCounter
+from flim_components.layouts.compact_layout import CompactLayout
+from flim_components.styles.cps_counter_styles import CPSCounterStyles
+from flim_components.utils.resource_path import get_asset_path
 
 
 class ChannelCPS(QWidget):
@@ -36,8 +32,10 @@ class ChannelCPS(QWidget):
         The background color of the container widget. Default is "transparent".
     border_color : str, optional
         The border color of the container widget. Default is "#3b3b3b".
-    arrow_icon_width : int, optional
-        The width of the arrow icon. Default is 30.
+    icon_path : str | None, optional
+        The file path to the icon displayed next to the checkbox (default loads from package assets an 'arrow-right' icon).
+    icon_width : int, optional
+        The width of the icon. Default is 30.
     visible : bool, optional
         If True, the widget is visible; if False, the widget is hidden. Default is True.
     parent : QWidget, optional
@@ -52,8 +50,8 @@ class ChannelCPS(QWidget):
         layout_type: Literal["horizontal", "vertical"] = "horizontal",
         background_color: str = "transparent",
         border_color: str = "#3b3b3b",
-        arrow_icon: str = resource_path("assets/arrow-right-grey.png"),
-        arrow_icon_width: int = 30,
+        icon_path: str | None = None,
+        icon_width: int = 30,
         visible: bool = True,
         parent: QWidget = None,
     ):
@@ -73,7 +71,10 @@ class ChannelCPS(QWidget):
         self.set_channel_label_style(channel_label_stylesheet)
         self.layout.addWidget(self.channel_label)
         arrow = QLabel()
-        arrow.setPixmap(QPixmap(arrow_icon).scaledToWidth(arrow_icon_width))
+        if icon_path is None:
+            icon_path = get_asset_path("assets/arrow-right-grey.png")
+        pixmap = QPixmap(icon_path)    
+        arrow.setPixmap(pixmap.scaledToWidth(icon_width))
         if self.layout_type == "horizontal":
             self.layout.addWidget(arrow)
         self.layout.addWidget(self.cps_counter)

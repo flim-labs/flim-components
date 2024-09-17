@@ -1,12 +1,10 @@
 import sys
-import os
 
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt
-from components.misc.loading_widget import LoadingOverlayWidget
-from utils.resource_path import resource_path
+
+from flim_components.components.misc.loading_widget import LoadingOverlayWidget
+from flim_components.utils import resource_path
 
 
 class LoadingOverlayWidgetExampleWindow(QWidget):
@@ -21,9 +19,11 @@ class LoadingOverlayWidgetExampleWindow(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
+        gif_path = resource_path.get_asset_path("assets/loading.gif")
+
         self.loading_widget = LoadingOverlayWidget(
             label_position="left",
-            gif_path=resource_path("assets/loading.gif"),
+            gif_path=gif_path,
             widget_alignment=Qt.AlignmentFlag.AlignBottom,
             parent=self,
         )

@@ -2,9 +2,10 @@ from typing import Callable, Optional
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QWidget, QCheckBox, QHBoxLayout, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt
-from components.inputs.fancy_checkbox import PaintedCheckbox
-from layouts.compact_layout import CompactLayout
-from styles.inputs_styles import InputStyles
+
+from flim_components.components.inputs.fancy_checkbox import PaintedCheckbox
+from flim_components.layouts.compact_layout import CompactLayout
+from flim_components.styles.inputs_styles import InputStyles
 
 
 class Checkbox(QWidget):

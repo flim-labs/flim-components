@@ -8,8 +8,11 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QMovie
 from PyQt6.QtCore import QSize, Qt
 from typing import Literal
-from styles.loading_styles import LoadingStyles
-from utils.resource_path import resource_path
+
+
+from flim_components.styles.loading_styles import LoadingStyles
+from flim_components.utils.resource_path import get_asset_path
+
 
 
 class LoadingWidget(QWidget):
@@ -22,7 +25,7 @@ class LoadingWidget(QWidget):
     label_text : str, optional
         The text to be displayed on the label (default is "Processing data...").
     gif_path : str
-        The path to the GIF file for the loading animation.
+        The path to the GIF file for the loading animation (default loads from package assets a 'loading' gif).
     label_position : Literal["top", "right", "bottom", "left"], optional
         The position of the label relative to the GIF (default is "left").
     label_style : str, optional
@@ -40,7 +43,7 @@ class LoadingWidget(QWidget):
     def __init__(
         self,
         label_text: str = "Processing data...",
-        gif_path: str = resource_path("assets/loading.gif"),
+        gif_path: str | None = None,
         label_position: Literal["top", "right", "bottom", "left"] = "left",
         label_style: str = "font-family: Montserrat; font-size: 18px; font-weight: bold; color: #50b3d7",
         gif_size: QSize = QSize(36, 36),
@@ -55,7 +58,9 @@ class LoadingWidget(QWidget):
         if label_style is not None:
             self.loading_text.setStyleSheet(label_style)
         # Initialize the GIF animation
-        self.gif_label = QLabel()
+        self.gif_label = QLabel()  
+        if gif_path is None:
+            gif_path = get_asset_path('assets/loading.gif')
         loading_gif = QMovie(gif_path)
         loading_gif.setScaledSize(gif_size)
         self.gif_label.setMovie(loading_gif)
@@ -171,7 +176,7 @@ class LoadingOverlayWidget(QWidget):
     label_text : str, optional
         The text to display in the loading label. Default is "Processing data...".
     gif_path : str, optional
-        The file path to the GIF animation. Default is "path/to/loading.gif".
+        The path to the GIF file for the loading animation (default loads from package assets a 'loading' gif).
     label_position : Literal["top", "right", "bottom", "left"], optional
         The position of the label relative to the GIF. Default is "left".
     label_style : str, optional
@@ -196,7 +201,7 @@ class LoadingOverlayWidget(QWidget):
             Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignTop
         ) = Qt.AlignmentFlag.AlignBottom,
         label_text: str = "Processing data...",
-        gif_path: str = resource_path("assets/loading.gif"),
+        gif_path: str | None = None,
         label_position: Literal["top", "right", "bottom", "left"] = "left",
         label_style: str = "font-family: Montserrat; font-size: 18px; font-weight: bold; color: #50b3d7",
         background_color: str = "black",
@@ -226,7 +231,9 @@ class LoadingOverlayWidget(QWidget):
         if label_style is not None:
             self.loading_text.setStyleSheet(label_style)
         # Initialize the GIF animation
-        self.gif_label = QLabel()
+        self.gif_label = QLabel()  
+        if gif_path is None:
+            gif_path = get_asset_path('assets/loading.gif')
         loading_gif = QMovie(gif_path)
         loading_gif.setScaledSize(gif_size)
         self.gif_label.setMovie(loading_gif)

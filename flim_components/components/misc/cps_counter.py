@@ -1,9 +1,10 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QApplication, QVBoxLayout
 from typing import Dict, Optional
-from components.animations.vibrant_animation import VibrantLabel
-from layouts.compact_layout import CompactLayout
-from styles.cps_counter_styles import CPSCounterStyles
-from utils.data_converter import DataConverter
+
+from flim_components.components.animations.vibrant_animation import VibrantLabel
+from flim_components.layouts.compact_layout import CompactLayout
+from flim_components.styles.cps_counter_styles import CPSCounterStyles
+from flim_components.utils.data_converter import DataConverter
 
 
 class CPSCounter(QWidget):

@@ -1,8 +1,8 @@
 from typing import Literal
 from PyQt6.QtWidgets import QWidget
 
-from components.inputs.input_number import InputInteger
-from components.inputs.slider import Slider, SliderWithInput
+from flim_components.components.inputs.input_number import InputInteger
+
 
 class TimeShiftInput(InputInteger):
     """

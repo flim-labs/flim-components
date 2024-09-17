@@ -2,9 +2,10 @@ from PyQt6.QtWidgets import QWidget, QHBoxLayout
 from typing import Optional
 from PyQt6.QtCore import QPropertyAnimation, QTimer
 
-from components.buttons.base_button import BaseButton
-from layouts.compact_layout import CompactLayout
-from styles.buttons_styles import ButtonStyles
+from flim_components.components.buttons.base_button import BaseButton
+from flim_components.layouts.compact_layout import CompactLayout
+from flim_components.styles.buttons_styles import ButtonStyles
+
 
 class CollapseButton(QWidget):
     """

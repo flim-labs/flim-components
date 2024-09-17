@@ -1,25 +1,24 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout
-from components.inputs.flim.acquisition_time_input import AcquisitionTimeInput
-from components.inputs.flim.acquisitions_averages_input import AcquisitionsAveragesSelector
-from components.inputs.flim.bin_width_input import BinWidthInput
-from components.inputs.flim.calibration_type_input import CalibrationTypeSelector
-from components.inputs.flim.connection_type_input import ConnectionTypeSelector
-from components.inputs.flim.cps_threshold_input import CPSThresholdInput
-from components.inputs.flim.harmonic_input import HarmonicSelector
-from components.inputs.flim.phasors_resolution_input import PhasorsResolutionSelector
-from components.inputs.flim.tau_input import TauInput
-from components.inputs.flim.time_span_input import TimeSpanInput
-from components.inputs.flim.acquisition_mode_input import AcquisitionModeSwitch
-from components.inputs.flim.export_data_input import ExportDataSwitch
-from components.inputs.flim.quantize_input import QuantizeSwitch
-from components.inputs.flim.time_shift_input import TimeShiftInput
-from components.inputs.slider import SliderWithInputFactory
-from components.inputs.flim.lin_log_input import LinLogSwitch
+
+from flim_components.components.inputs.flim.acquisition_mode_input import AcquisitionModeSwitch
+from flim_components.components.inputs.flim.acquisition_time_input import AcquisitionTimeInput
+from flim_components.components.inputs.flim.acquisitions_averages_input import AcquisitionsAveragesSelector
+from flim_components.components.inputs.flim.bin_width_input import BinWidthInput
+from flim_components.components.inputs.flim.calibration_type_input import CalibrationTypeSelector
+from flim_components.components.inputs.flim.connection_type_input import ConnectionTypeSelector
+from flim_components.components.inputs.flim.cps_threshold_input import CPSThresholdInput
+from flim_components.components.inputs.flim.export_data_input import ExportDataSwitch
+from flim_components.components.inputs.flim.harmonic_input import HarmonicSelector
+from flim_components.components.inputs.flim.lin_log_input import LinLogSwitch
+from flim_components.components.inputs.flim.phasors_resolution_input import PhasorsResolutionSelector
+from flim_components.components.inputs.flim.quantize_input import QuantizeSwitch
+from flim_components.components.inputs.flim.tau_input import TauInput
+from flim_components.components.inputs.flim.time_shift_input import TimeShiftInput
+from flim_components.components.inputs.flim.time_span_input import TimeSpanInput
+from flim_components.components.inputs.slider import SliderWithInputFactory
+
 
 
 class FlimInputsExampleWindow(QWidget):

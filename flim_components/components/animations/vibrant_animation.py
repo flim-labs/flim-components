@@ -2,7 +2,7 @@ from PyQt6.QtCore import QPropertyAnimation, QPoint, QEasingCurve, QAbstractAnim
 from PyQt6.QtWidgets import QLabel
 from typing import Optional
 
-from styles.animations_styles import AnimationsStyles
+from flim_components.styles.animations_styles import AnimationsStyles
 
 class VibrantLabel:
     """

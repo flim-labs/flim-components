@@ -1,7 +1,7 @@
 from typing import Literal
 from PyQt6.QtWidgets import QWidget
 
-from components.inputs.input_number import InputFloat
+from flim_components.components.inputs.input_number import InputFloat
 
 class TauInput(InputFloat):
     """

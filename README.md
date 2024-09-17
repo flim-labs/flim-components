@@ -47,7 +47,7 @@ To get a local copy up and running follow these steps.
    ```     
 6. Run an example file of your choice; e.g:
    ```sh
-   python flim_plot.py
+   python -m flim_components.examples.flim_plot
    ```  
 
 

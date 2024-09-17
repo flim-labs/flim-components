@@ -1,7 +1,7 @@
 from typing import Literal, Optional
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QFrame, QSizePolicy
-from layouts.compact_layout import CompactLayout
 
+from flim_components.layouts.compact_layout import CompactLayout
 
 class LayoutSeparator(QWidget):
     """

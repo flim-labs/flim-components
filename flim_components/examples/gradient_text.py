@@ -1,9 +1,7 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from components.typography.gradient_text import GradientText
+
+from flim_components.components.typography.gradient_text import GradientText
 
 
 class GradientTextExampleWindow(QWidget):

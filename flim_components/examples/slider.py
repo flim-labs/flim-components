@@ -1,11 +1,8 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import Qt
-from components.inputs.slider import Slider, SliderWithInputFactory
 
+from flim_components.components.inputs.slider import Slider, SliderWithInputFactory
 
 class SliderExampleWindow(QWidget):
     def __init__(self):

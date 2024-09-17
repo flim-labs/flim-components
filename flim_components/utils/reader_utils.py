@@ -1,7 +1,8 @@
 import json
 from typing import Any, Callable, Optional, Tuple
 from PyQt6.QtWidgets import QFileDialog
-from components.popups.box_message import WarningMessage
+
+from flim_components.components.popups.box_message import WarningMessage
 
 
 class ReadFilesUtils:

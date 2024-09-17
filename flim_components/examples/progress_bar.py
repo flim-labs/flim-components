@@ -1,14 +1,9 @@
 import sys
-import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from components.misc.progress_bar import ProgressBar
-from styles.progress_bar_styles import ProgressBarStyles
-from components.buttons.base_button import BaseButton
 
-
+from flim_components.components.buttons.base_button import BaseButton
+from flim_components.components.misc.progress_bar import ProgressBar
+from flim_components.styles.progress_bar_styles import ProgressBarStyles
 
 class ProgressBarExampleWindow(QWidget):
     def __init__(self):

@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import (
     QGraphicsProxyWidget,
 )
 
-from utils.layout_utils import LayoutUtils
+from flim_components.utils.layout_utils import LayoutUtils
 
 
 def take_closest(num, collection):

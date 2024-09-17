@@ -1,12 +1,9 @@
 import sys
-import os
-
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
 from PyQt6.QtCore import QTimer
-from components.misc.time_counter import TimeCounter
-from components.buttons.base_button import BaseButton
+
+from flim_components.components.buttons.base_button import BaseButton
+from flim_components.components.misc.time_counter import TimeCounter
 
 
 class TimeCounterExampleWindow(QWidget):

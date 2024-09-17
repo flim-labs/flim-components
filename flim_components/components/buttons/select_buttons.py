@@ -8,7 +8,9 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import QSize, Qt, pyqtSignal
 from PyQt6.QtGui import QIcon
 from typing import List, Literal, Tuple, Optional
-from styles.buttons_styles import ButtonStyles
+
+from flim_components.styles.buttons_styles import ButtonStyles
+
 
 
 class SelectButton(QPushButton):

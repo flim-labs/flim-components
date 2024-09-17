@@ -1,6 +1,7 @@
 import re
 from typing import Callable, List, Tuple
-from utils.constants import UNICODE_SUP
+
+from flim_components.utils.constants import UNICODE_SUP
 
 class DataFormatter:
     @staticmethod

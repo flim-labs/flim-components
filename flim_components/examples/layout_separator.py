@@ -1,10 +1,8 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel
 from PyQt6.QtCore import Qt
-from layouts.layout_separator import LayoutSeparator 
+
+from flim_components.layouts.layout_separator import LayoutSeparator
 
 class LayoutSeparatorExampleWindow(QWidget):
     def __init__(self):

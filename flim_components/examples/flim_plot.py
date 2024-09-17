@@ -1,13 +1,10 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import numpy as np
 import pyqtgraph as pg
 from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout
 from PyQt6.QtCore import QTimer
-from components.plots.flim_plot import FlimPlot
 
+from flim_components.components.plots.flim_plot import FlimPlot
 
 class BasePlotExampleWindow(QWidget):
     def __init__(self):

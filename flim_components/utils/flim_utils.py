@@ -1,9 +1,9 @@
 from typing import List
 import numpy as np
-from flim_components.utils.data_converter import DataConverter
-from utils.constants import HETERODYNE_FACTOR, PHASOR_LIFETIMES
-from utils.data_formatter import DataFormatter
 
+from flim_components.utils.constants import HETERODYNE_FACTOR, PHASOR_LIFETIMES
+from flim_components.utils.data_converter import DataConverter
+from flim_components.utils.data_formatter import DataFormatter
 
 class FlimUtils:
     """

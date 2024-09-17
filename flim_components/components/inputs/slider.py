@@ -2,7 +2,8 @@ from PyQt6.QtWidgets import QSlider, QWidget, QHBoxLayout, QVBoxLayout
 from PyQt6.QtCore import Qt
 from typing import Callable, Literal, Optional
 
-from components.inputs.input_number import InputInteger
+from flim_components.components.inputs.input_number import InputInteger
+
 
 
 class Slider(QSlider):

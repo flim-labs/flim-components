@@ -1,10 +1,7 @@
 import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout
-from components.inputs.switch import DualLabelSwitchBox, SwitchBox
 
+from flim_components.components.inputs.switch import DualLabelSwitchBox, SwitchBox
 
 class SwitchExampleWindow(QWidget):
     def __init__(self):

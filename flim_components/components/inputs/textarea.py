@@ -1,8 +1,8 @@
 from typing import Literal
 from PyQt6.QtWidgets import QLabel, QVBoxLayout, QHBoxLayout, QPlainTextEdit, QWidget
 
-from styles.inputs_styles import InputStyles
-from utils.layout_utils import LayoutUtils
+from flim_components.styles.inputs_styles import InputStyles
+from flim_components.utils.layout_utils import LayoutUtils
 
 
 class TextArea(QWidget):

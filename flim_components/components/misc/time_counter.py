@@ -5,8 +5,9 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import pyqtSignal
 from typing import Literal, Optional
-from styles.time_counter_styles import TimeCounterStyles
-from utils.data_converter import DataConverter
+
+from flim_components.styles.time_counter_styles import TimeCounterStyles
+from flim_components.utils.data_converter import DataConverter
 
 
 class TimeCounter(QLabel):

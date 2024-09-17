@@ -5,14 +5,8 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 from typing import Any, Dict, Literal, Optional, Tuple
 
-from models.models import (
-    PlotAxisParams,
-    PlotDimensionsParams,
-    PlotGridParams,
-    PlotScatterStyleParams,
-    PlotTextItemParams,
-)
-from utils.flim_utils import FlimUtils
+from flim_components.models.models import PlotAxisParams, PlotDimensionsParams, PlotGridParams, PlotScatterStyleParams, PlotTextItemParams
+from flim_components.utils.flim_utils import FlimUtils
 
 
 class FlimPlot(pg.PlotWidget):

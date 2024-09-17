@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QEasingCurve
-from components.inputs.switch import DualLabelSwitchBox
-from styles.inputs_styles import InputStyles
 
+from flim_components.components.inputs.switch import DualLabelSwitchBox
+from flim_components.styles.inputs_styles import InputStyles
 
 class LinLogSwitch(DualLabelSwitchBox):
     """

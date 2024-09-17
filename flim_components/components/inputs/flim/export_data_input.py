@@ -1,6 +1,6 @@
 from typing import Literal, Optional
 
-from components.inputs.switch import SwitchBox
+from flim_components.components.inputs.switch import SwitchBox
 
 
 class ExportDataSwitch(SwitchBox):

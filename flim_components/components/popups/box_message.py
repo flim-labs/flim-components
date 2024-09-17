@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtGui import QIcon
-from components.popups.popup import Popup
-from styles.popups_styles import PopupsStyles
+
+from flim_components.components.popups.popup import Popup
 
 
 class MessageBox(Popup):

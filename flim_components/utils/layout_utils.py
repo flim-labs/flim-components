@@ -2,7 +2,7 @@
 from PyQt6.QtGui import QGuiApplication, QCursor
 from PyQt6.QtWidgets import QWidget, QApplication
 
-from components.popups.popup import Popup
+from flim_components.components.popups.popup import Popup
 
 
 class LayoutUtils:

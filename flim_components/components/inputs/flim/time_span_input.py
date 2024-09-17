@@ -1,7 +1,7 @@
 from typing import Literal
 from PyQt6.QtWidgets import QWidget
 
-from components.inputs.input_number import InputInteger
+from flim_components.components.inputs.input_number import InputInteger
 
 class TimeSpanInput(InputInteger):
     """
