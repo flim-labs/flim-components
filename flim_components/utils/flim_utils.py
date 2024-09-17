@@ -1,6 +1,7 @@
 from typing import List
 import numpy as np
-from utils.constants import PHASOR_LIFETIMES
+from flim_components.utils.data_converter import DataConverter
+from utils.constants import HETERODYNE_FACTOR, PHASOR_LIFETIMES
 from utils.data_formatter import DataFormatter
 
 
@@ -387,3 +388,79 @@ class FlimUtils:
             dtype=np.float32,
         )
         return pos, color
+    
+    
+    @staticmethod
+    def bin_to_time_ns(bin: int, frequency_mhz: float) -> float:
+        """
+        Convert a time bin to nanoseconds based on the laser frequency.
+
+        This function calculates the time in nanoseconds corresponding to a specific bin value 
+        in a FLIM measurement, using the modulation 
+        frequency of the laser.
+
+        Parameters
+        ----------
+        bin : int
+            The time bin to be converted into nanoseconds.
+        frequency_mhz : float
+            The modulation frequency of the laser in megahertz (MHz).
+
+        Returns
+        -------
+        float
+            The time in nanoseconds corresponding to the given bin, adjusted by the heterodyne factor.
+        """
+        laser_period_ns = 0.0 if frequency_mhz == 0.0 else DataConverter.mhz_to_ns(frequency_mhz)
+        return ((bin * laser_period_ns) / 256) * HETERODYNE_FACTOR
+    
+
+    @staticmethod
+    def time_ns_to_bin(micro_time_ns: float, frequency_mhz: float) -> int:
+        """
+        Convert time in nanoseconds to a corresponding bin value based on the laser frequency.
+
+        This function converts a time in nanoseconds back to the corresponding bin value for 
+        FLIM measurements, using the modulation frequency of the laser.
+
+        Parameters
+        ----------
+        micro_time_ns : float
+            The time in nanoseconds to be converted into a bin value.
+        frequency_mhz : float
+            The modulation frequency of the laser in megahertz (MHz).
+
+        Returns
+        -------
+        int
+            The corresponding bin value for the given time in nanoseconds, adjusted by the heterodyne factor.
+        """
+        laser_period_ns = 0.0 if frequency_mhz == 0.0 else DataConverter.mhz_to_ns(frequency_mhz)
+        if laser_period_ns == 0.0:
+            return 0  
+        return (micro_time_ns * 256) / (HETERODYNE_FACTOR * laser_period_ns)
+    
+    
+    @staticmethod
+    def calculate_SBR(y: np.ndarray) -> float:
+        """
+        Calculate the Signal-to-Background Ratio (SBR) of a given array.
+
+        The SBR is computed as the ratio of the mean (signal) to the standard deviation (noise) 
+        of the input data, expressed in decibels (dB).
+
+        Parameters
+        ----------
+        y : np.ndarray
+            The input array of numerical values representing the signal.
+
+        Returns
+        -------
+        float
+            The Signal-to-Background Ratio (SBR) in decibels (dB).
+        """
+        signal = np.mean(y)
+        noise = np.std(y)
+        return 10 * np.log10(signal / noise)
+    
+    

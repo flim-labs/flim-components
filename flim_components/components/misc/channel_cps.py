@@ -1,4 +1,3 @@
-import os
 from PyQt6.QtWidgets import (
     QWidget,
     QLabel,
@@ -7,7 +6,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
-from typing import Dict, Literal
+from typing import Literal
 from components.misc.cps_counter import CPSCounter
 from layouts.compact_layout import CompactLayout
 from styles.cps_counter_styles import CPSCounterStyles

@@ -121,7 +121,7 @@ class ButtonStyles:
         border_color_inactive: str,
         bg_color_disabled: str,
         fg_color_disabled: str,
-        border_color_disabled: str
+        border_color_disabled: str,
     ):
         return f"""
             QPushButton {{
@@ -154,4 +154,45 @@ class ButtonStyles:
                 border: 2px solid {border_color_disabled};
                 color: {fg_color_disabled};
             }}                          
+        """
+
+    @staticmethod
+    def time_tagger_style(
+        bg_color: str, fg_color: str, checkbox_color: str, border_color: str
+    ):
+        return f"""
+            QWidget#container {{
+                border-radius: 5px;
+                border: 2px solid {border_color};
+                padding: 0;
+                
+            }} 
+            QWidget {{
+                background-color: {bg_color};
+                padding: 0;
+            }}    
+            QCheckBox {{
+                spacing: 10px;
+                color: {fg_color};
+                font-family: "Montserrat";
+                font-weight: 800;
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                border: none;
+                border-radius: 5px;
+                padding: 0 10px 0 0;
+            }}
+            QCheckBox::indicator {{
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;  
+            }}
+
+            QCheckBox::indicator:unchecked {{
+                background-color: #6b6a6a;
+            }}
+
+            QCheckBox::indicator:checked {{
+                background-color: {checkbox_color};
+            }}                   
         """

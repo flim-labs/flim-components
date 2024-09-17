@@ -6,7 +6,9 @@ from components.popups.box_message import WarningMessage
 
 class ReadFilesUtils:
     @staticmethod
-    def read_json(window: Any, file_type: str) -> Tuple[Optional[str], Optional[dict]]:
+    def read_json(
+        window: Any, file_type: str, filter_string: str | None = None
+    ) -> Tuple[Optional[str], Optional[dict]]:
         """
         Opens a file dialog to select a JSON file, then reads and parses its content.
 
@@ -16,6 +18,8 @@ class ReadFilesUtils:
             The parent window for the QFileDialog.
         file_type : str
             A string representing the type of file to read (e.g. "Spectroscopy metadata")
+        filter_string: str | None, optional
+            The string which should be use to filter files (default is None).
 
         Returns
         -------
@@ -25,15 +29,21 @@ class ReadFilesUtils:
         """
         dialog = QFileDialog()
         dialog.setAcceptMode(QFileDialog.AcceptMode.AcceptOpen)
-        dialog.setNameFilter("JSON files (*.json)")
+        if filter_string:
+            filter_pattern = f"JSON files (*{filter_string}*.json)"
+        else:
+            filter_pattern = "JSON files (*.json)"
+        dialog.setNameFilter(filter_pattern)
         file_name, _ = dialog.getOpenFileName(
             window,
             f"Load {file_type} file",
             "",
-            "JSON files (*.json)",
+            filter_pattern,
             options=QFileDialog.Option.DontUseNativeDialog,
         )
-        if not file_name or not file_name.endswith(".json"):
+        if not file_name:
+            return None, None
+        if file_name is not None and not file_name.endswith(".json"):
             WarningMessage.show(
                 "Invalid extension", "Invalid extension. File should be a .json"
             )
@@ -59,6 +69,7 @@ class ReadFilesUtils:
         magic_bytes: Optional[bytes],
         file_type: str,
         read_data_cb: Callable[..., Any],
+        filter_string: str | None = None,
         *args: Any,
         **kwargs: Any,
     ) -> Optional[Any]:
@@ -74,6 +85,8 @@ class ReadFilesUtils:
             The expected magic bytes for file validation. Pass None to skip validation.
         file_type : str
             A string representing the file type (e.g. "Spectroscopy").
+        filter_string: str | None, optional
+            The string which should be use to filter files (default is None).
         read_data_cb : Callable[..., Any]
             The callback function to process the file data. This function must accept
             a file object and any other required arguments passed via *args and **kwargs.
@@ -89,16 +102,21 @@ class ReadFilesUtils:
         """
         dialog = QFileDialog()
         dialog.setAcceptMode(QFileDialog.AcceptMode.AcceptOpen)
-        dialog.setNameFilter("Bin files (*.bin)")
+        if filter_string:
+            filter_pattern = f"Bin files (*{filter_string}*.bin)"
+        else:
+            filter_pattern = "Bin files (*.bin)"
+        dialog.setNameFilter(filter_pattern)
         file_name, _ = dialog.getOpenFileName(
             window,
             f"Load {file_type} file",
             "",
-            "Bin files (*.bin)",
+            filter_pattern,
             options=QFileDialog.Option.DontUseNativeDialog,
         )
-
-        if not file_name or not file_name.endswith(".bin"):
+        if not file_name:
+            return None
+        if file_name is not None and not file_name.endswith(".bin"):
             WarningMessage.show(
                 "Invalid extension", "Invalid extension. File should be a .bin"
             )

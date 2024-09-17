@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 from typing import Any, Dict
 from PyQt6.QtWidgets import QFileDialog
 
@@ -165,6 +166,64 @@ class FileUtils:
             key=lambda x: os.path.getmtime(os.path.join(data_folder, x)), reverse=True
         )
         return os.path.join(data_folder, files[0])
+    
+
+    @staticmethod
+    def get_recent_time_tagger_file(root_folder: str) -> str:
+        """
+        Retrieves the most recent Time Tagger file from the specified root folder.
+
+        Parameters:
+        - root_folder (str): The root directory containing the data.
+
+        Returns:
+        - str: The path to the most recent Time Tagger file.
+
+        Raises:
+        - FileNotFoundError: If no Time Tagger files are found.
+        """        
+        data_folder = os.path.join(root_folder, ".flim-labs", "data")
+        files = [
+            f
+            for f in os.listdir(data_folder)
+            if f.startswith("time_tagger_spectroscopy")
+        ]
+        if not files:
+            raise FileNotFoundError("No Time Tagger files found.")        
+        files.sort(
+            key=lambda x: os.path.getmtime(os.path.join(data_folder, x)), reverse=True
+        )
+        return os.path.join(data_folder, files[0])  
+    
+    
+    @staticmethod
+    def copy_file(origin_file_path: str, save_name: str, save_dir: str) -> str:
+        """
+        Copy a file to a new directory with a modified name.
+
+        This function takes the path of a file, appends a custom save name to the original file name, 
+        and copies the file to the specified directory with the new name.
+
+        Parameters
+        ----------
+        origin_file_path : str
+            The path to the original file to be copied.
+        save_name : str
+            A string to be appended to the original file name before saving the copy.
+        save_dir : str
+            The directory where the copied file will be saved.
+
+        Returns
+        -------
+        str
+            The full path to the newly copied file.
+        """
+        origin_file_name = os.path.basename(origin_file_path)
+        new_file_name = f"{save_name}_{origin_file_name}"
+        new_file_path = os.path.join(save_dir, new_file_name)
+        shutil.copyfile(origin_file_path, new_file_path)
+        return new_file_path
+        
         
     @staticmethod
     def extract_file_metadata(file_path: str, magic_number: bytes) -> Dict[str, Any]:
