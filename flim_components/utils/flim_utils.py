@@ -460,6 +460,8 @@ class FlimUtils:
             The Signal-to-Background Ratio (SBR) in decibels (dB).
         """
         signal = np.mean(y)
+        if signal == 0:
+            return 0        
         noise = np.std(y)
         return 10 * np.log10(signal / noise)
     
