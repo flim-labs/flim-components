@@ -15,7 +15,7 @@ class SBRWidget(QLabel):
     Parameters
     ----------
     text : str, optional
-        The initial text to be displayed on the label (default is "0 SBR").
+        The initial text to be displayed on the label (default is "SBR: 0 ㏈").
     font_size : str, optional
         The font size of the text (default is "22px").
     bg_color : str, optional
@@ -30,7 +30,7 @@ class SBRWidget(QLabel):
 
     def __init__(
         self,
-        text: str = "0 SBR",
+        text: str = "SBR: 0 ㏈",
         font_size: str = "22px",
         bg_color: str = "#0a0a0a",
         fg_color: str = "#f72828",
@@ -58,7 +58,7 @@ class SBRWidget(QLabel):
             The number of decimal places to display in the SBR value (default is 2).
         """
         SBR_value = FlimUtils.calculate_SBR(np.array(y_data))
-        self.setText(f"{SBR_value:.{decimals}f} SBR")
+        self.setText(f"SBR: {SBR_value:.{decimals}f} ㏈")
         
 
     def set_style(self, bg_color: str, fg_color: str, font_size: str) -> None:
