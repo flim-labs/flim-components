@@ -10,7 +10,7 @@ class CheckCardWidget(QWidget):
     """
     A widget that contains a customizable button and a message label for displaying Flim card check status.
 
-    This widget provides a button, used to check device status, and a message label
+    This widget provides a button used to check the device status and a message label
     for displaying either success (Card ID) or error messages. The styles and visibility of the button and message
     can be customized.
 
@@ -24,6 +24,12 @@ class CheckCardWidget(QWidget):
         The height of the button (default is 36).
     button_bg_color : str, optional
         The background color of the button (default is "#11468F").
+    button_bg_color_hover : str, optional
+        The background color of the button when hovered over (default is "#0053a4").
+    button_bg_color_pressed : str, optional
+        The background color of the button when pressed (default is "#0D3A73").
+    button_border_color : str, optional
+        The border color of the button (default is "#11468F").
     button_fg_color : str, optional
         The foreground (text) color of the button (default is "#ffffff").
     button_icon : str, optional
@@ -48,6 +54,9 @@ class CheckCardWidget(QWidget):
         button_width: int | None = None,
         button_height: int | None = 36,
         button_bg_color: str = "#11468F",
+        button_bg_color_hover: str = "#0053a4",
+        button_bg_color_pressed: str = "#0D3A73",
+        button_border_color: str = "#11468F",
         button_fg_color: str = "#ffffff",
         button_icon: str | None = None,
         message_color: str = "#285da6",
@@ -62,7 +71,7 @@ class CheckCardWidget(QWidget):
         self.layout = CompactLayout(QHBoxLayout())
         if button_icon is None:
             button_icon = get_asset_path("assets/card-icon.png")
-        
+
         # Check button
         self.check_button = BaseButton(
             button_text,
@@ -73,22 +82,22 @@ class CheckCardWidget(QWidget):
             button_icon,
             None,
             button_fg_color,
+            button_border_color,
             button_bg_color,
-            button_bg_color,
-            button_bg_color,
-            button_bg_color,
+            button_bg_color_hover,
+            button_bg_color_pressed,
         )
 
         # Check message label
         self.check_message = QLabel("")
         self.set_message_style(message_color, message_bg_color, message_border_color)
-        
+
         # Add widgets to layout
         self.layout.addWidget(self.check_button)
         self.layout.addSpacing(5)
         self.layout.addWidget(self.check_message)
         self.check_message.hide()  # Hide message by default
-        
+
         self.setLayout(self.layout)
 
     def update_message(
@@ -102,7 +111,7 @@ class CheckCardWidget(QWidget):
         """
         Update the message displayed in the label.
 
-        Depending on the value of `error`, the message will either be an error message or 
+        Depending on the value of `error`, the message will either be an error message or
         a success message showing the Card ID.
 
         Parameters

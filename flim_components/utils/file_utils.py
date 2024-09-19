@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import shutil
 from typing import Any, Dict
 from PyQt6.QtWidgets import QFileDialog
@@ -251,3 +252,25 @@ class FileUtils:
             header = f.read(header_length)
             metadata = json.loads(header)
         return metadata
+    
+    
+    @staticmethod
+    def clean_filename(filename: str) -> str:
+        """
+        Clean the given filename by removing any characters that are not letters, numbers, or underscores.
+
+        This method ensures that the filename contains only alphanumeric characters and underscores. 
+        All other characters, including spaces, punctuation, and special symbols, are removed.
+
+        Parameters
+        ----------
+        filename : str
+            The original filename that needs to be cleaned.
+
+        Returns
+        -------
+        str
+            The cleaned filename containing only letters, numbers, and underscores.
+        """
+        return re.sub(r"[^a-zA-Z0-9_]", "", filename)
+    
