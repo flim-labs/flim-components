@@ -272,5 +272,6 @@ class FileUtils:
         str
             The cleaned filename containing only letters, numbers, and underscores.
         """
+        filename = filename.replace(" ", "_")
         return re.sub(r"[^a-zA-Z0-9_]", "", filename)
     
