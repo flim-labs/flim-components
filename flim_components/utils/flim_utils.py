@@ -444,10 +444,11 @@ class FlimUtils:
     @staticmethod
     def calculate_SBR(y: np.ndarray) -> float:
         """
-        Calculate the Signal-to-Background Ratio (SBR) of a given array.
+        Calculate the Signal-to-Background Ratio (SBR) for a given array.
 
-        The SBR is computed as the ratio of the mean (signal) to the standard deviation (noise) 
-        of the input data, expressed in decibels (dB).
+        The SBR is computed as the ratio of the peak signal to the minimum signal, 
+        both adjusted by adding 1 to avoid division by zero. The result is expressed 
+        in decibels (dB) using the logarithmic scale.
 
         Parameters
         ----------
@@ -459,10 +460,9 @@ class FlimUtils:
         float
             The Signal-to-Background Ratio (SBR) in decibels (dB).
         """
-        signal = np.mean(y)
-        if signal == 0:
-            return 0        
-        noise = np.std(y)
-        return 10 * np.log10(signal / noise)
+        signal_peak = np.max(y) + 1
+        noise = np.min(y) + 1
+        return 10 * np.log10(signal_peak / noise)
+
     
     
